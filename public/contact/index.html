@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — novato</title>
+  <meta name="description" content="Get in touch with Novato. We build custom websites, management software, e-commerce, mobile apps and more.">
+  <meta name="theme-color" content="#ff3300">
+  <link rel="canonical" href="https://novato.dev/contact/">
+
+  <link rel="icon" href="../novato.png" type="image/png">
+  <link rel="apple-touch-icon" href="../novato.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #fff;
+      --fg: #000;
+      --accent: #ff3300;
+      --border: 3px solid #000;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Mono', monospace;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.4;
+      font-size: 16px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      border-right: var(--border);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -1px;
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    nav { display: flex; align-items: stretch; }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-left: var(--border);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    nav a:hover, nav a.active {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      border-bottom: var(--border);
+      padding: 60px 40px;
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -3px;
+      line-height: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .page-hero h1 span {
+      color: var(--accent);
+    }
+
+    .page-hero p {
+      font-size: 1.1rem;
+      opacity: 0.7;
+      max-width: 520px;
+    }
+
+    /* ── CONTACT GRID ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: var(--border);
+    }
+
+    .contact-info {
+      padding: 60px 40px;
+      border-right: var(--border);
+    }
+
+    .contact-info .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.4;
+      margin-bottom: 40px;
+    }
+
+    .contact-item {
+      border-top: var(--border);
+      padding: 28px 0;
+    }
+
+    .contact-item:last-child {
+      border-bottom: var(--border);
+    }
+
+    .contact-item-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.4;
+      margin-bottom: 8px;
+    }
+
+    .contact-item-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .contact-item-value a:hover {
+      color: var(--accent);
+    }
+
+    .contact-item-value .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      margin-left: 10px;
+      vertical-align: middle;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* ── FORM SIDE ── */
+    .contact-form-wrap {
+      padding: 60px 40px;
+    }
+
+    .contact-form-wrap .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.4;
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      border-top: var(--border);
+      padding: 20px 0 0;
+      margin-bottom: 0;
+    }
+
+    .form-group:last-of-type {
+      border-bottom: var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 32px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.4;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--fg);
+      padding: 4px 0 12px;
+      resize: none;
+      appearance: none;
+    }
+
+    .form-group select option {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      opacity: 0.25;
+      font-weight: 400;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 36px;
+      border: var(--border);
+      background: var(--fg);
+      color: var(--bg);
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.1s;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ── SERVICES STRIP ── */
+    .services-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-bottom: var(--border);
+    }
+
+    .strip-item {
+      padding: 24px 20px;
+      border-right: var(--border);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .strip-item:last-child { border-right: none; }
+
+    .strip-item::before {
+      content: '→ ';
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer { border-bottom: var(--border); }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .footer-links a:hover { text-decoration: underline; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-info { border-right: none; border-bottom: var(--border); }
+      .services-strip { grid-template-columns: repeat(3, 1fr); }
+      .strip-item:nth-child(3n) { border-right: none; }
+      .strip-item { border-bottom: var(--border); }
+    }
+
+    @media (max-width: 600px) {
+      .hamburger { display: flex; }
+      .header-inner { flex-direction: row; height: 70px; }
+      .logo { border-right: var(--border); padding: 0 20px; }
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: var(--border);
+        flex-direction: column;
+        display: none;
+        z-index: 99;
+      }
+      nav.active { display: flex; }
+      nav a {
+        border-left: none;
+        border-top: var(--border);
+        padding: 16px;
+        justify-content: center;
+        border-right: var(--border);
+      }
+      nav a:nth-child(even) { border-right: none; }
+      .page-hero { padding: 40px 20px; }
+      .contact-info, .contact-form-wrap { padding: 36px 20px; }
+      .services-strip { grid-template-columns: repeat(2, 1fr); }
+      .strip-item:nth-child(3n) { border-right: var(--border); }
+      .strip-item:nth-child(even) { border-right: none; }
+      .footer-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../Inverted.png" alt="Novato Logo" height="32px" width="32px">
+        NOVATO
+      </a>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../screen-lab/index.html">Screen Lab</a>
+        <a href="../tomato-clock/index.html">Tomato Clock</a>
+        <a href="index.html" class="active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Services strip -->
+  <div class="services-strip">
+    <div class="strip-item">Websites</div>
+    <div class="strip-item">Management Software</div>
+    <div class="strip-item">E-Commerce</div>
+    <div class="strip-item">Mobile Apps</div>
+    <div class="strip-item">Automation & APIs</div>
+    <div class="strip-item">SEO & Performance</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <h1>Let's<br><span>Talk.</span></h1>
+    <p>Got a project in mind? Want to know more about what we build? Drop us a line — we reply fast.</p>
+  </div>
+
+  <!-- Main contact grid -->
+  <div class="contact-grid">
+
+    <!-- Left: info -->
+    <div class="contact-info">
+      <div class="section-label">Get in touch</div>
+
+      <div class="contact-item">
+        <div class="contact-item-label">Email</div>
+        <div class="contact-item-value">
+          <a href="mailto:help@novato.dev">help@novato.dev</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-label">Response time</div>
+        <div class="contact-item-value">Within 24 hours</div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-label">Custom Projects</div>
+        <div class="contact-item-value">
+          Available <span class="tag">Open</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-label">Free Apps — Support</div>
+        <div class="contact-item-value">
+          <a href="mailto:help@novato.dev">help@novato.dev</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="contact-form-wrap">
+      <div class="section-label">Send a message</div>
+
+      <form action="mailto:help@novato.dev" method="post" enctype="text/plain">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">What do you need?</label>
+          <select id="subject" name="subject">
+            <option value="">Select a topic</option>
+            <option value="website">Website</option>
+            <option value="gestionale">Management Software</option>
+            <option value="ecommerce">E-Commerce</option>
+            <option value="mobile">Mobile App</option>
+            <option value="automation">Automation & APIs</option>
+            <option value="seo">SEO & Performance</option>
+            <option value="app-support">App Support (Tomato Clock / Screen Lab)</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          Send Message
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../novato.png" alt="Novato Logo" height="32px" width="32px" loading="lazy">
+        Novato
+      </div>
+      <div class="footer-links">
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#about">About</a>
+        <a href="../tomato-clock/index.html">Tomato Clock</a>
+        <a href="../screen-lab/index.html">Screen Lab</a>
+        <a href="../privacy-policy/index.html">Privacy</a>
+        <a href="../terms/index.html">Terms</a>
+        <a href="index.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.querySelector('.hamburger');
+      const nav = document.querySelector('nav');
+
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+      });
+
+      // Close menu when clicking a link
+      nav.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') {
+          hamburger.classList.remove('active');
+          nav.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

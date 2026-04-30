@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="monetag" content="90e1790b5979d4257b1ad0b7569cac79">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tomato Clock Reward</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --card: #ffffff;
+        --text: #000000;
+        --muted: #222222;
+        --border: #000000;
+        --accent: #ff3b30;
+        --shadow: 8px 8px 0 #000000;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(680px, 100%);
+        padding: 24px;
+        border: 4px solid var(--border);
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border: 4px solid var(--border);
+        background: #ffe500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(2rem, 7vw, 4rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.5;
+      }
+
+      .meta {
+        margin-top: 18px;
+        padding: 14px;
+        border: 4px solid var(--border);
+      }
+
+      .meta span {
+        display: block;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .meta strong {
+        display: block;
+        margin-top: 6px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .disclosure {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 4px solid var(--border);
+      }
+
+      .disclosure p,
+      .disclosure a {
+        font-size: 0.92rem;
+      }
+
+      .disclosure-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .disclosure a {
+        color: inherit;
+      }
+
+      button {
+        border: 4px solid var(--border);
+        background: #ffffff;
+        color: var(--text);
+        padding: 12px 18px;
+        font: inherit;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        cursor: pointer;
+        box-shadow: 4px 4px 0 #000000;
+      }
+
+      button.primary {
+        background: var(--accent);
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <div class="badge">Reward for you</div>
+        <h1>Watch the ad</h1>
+        <p id="rewardMessage">support Novato</p>
+        <div class="meta">
+          <span>Feature</span>
+          <strong id="featureKey">Premium feature</strong>
+        </div>
+        <div class="actions">
+          <button id="completeButton" class="primary" type="button">Continue</button>
+        </div>
+        <div class="disclosure">
+          <p>This page may display advertising to support temporary premium unlocks.</p>
+          <div class="disclosure-links">
+            <a href="/privacy-policy/" target="_blank" rel="noreferrer">Privacy Policy</a>
+            <a href="/advertising-disclosure/" target="_blank" rel="noreferrer">Advertising Disclosure</a>
+            <a href="/terms/" target="_blank" rel="noreferrer">Terms of Use</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>(function(s){s.dataset.zone='10784889',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="223256" async data-cfasync="false"></script>
+    <script>
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const callbackUrl = params.get("callbackUrl");
+        const featureKey = params.get("featureKey") || "premium feature";
+        const featureNode = document.getElementById("featureKey");
+        const completeButton = document.getElementById("completeButton");
+        const rewardMessage = document.getElementById("rewardMessage");
+
+        featureNode.textContent = featureKey.replace(/([A-Z])/g, " $1").trim() || "Premium feature";
+
+        if (!callbackUrl) {
+          rewardMessage.textContent = "Missing callback URL. This reward cannot complete correctly yet.";
+          completeButton.disabled = true;
+          return;
+        }
+
+        function completeReward() {
+          window.location.href = callbackUrl;
+        }
+
+        window.completeTomatoReward = completeReward;
+        window.tomatoClockRewardComplete = completeReward;
+        window.tomatoRewardComplete = completeReward;
+
+        window.addEventListener("message", (event) => {
+          const data = event.data;
+          if (!data || typeof data !== "object") {
+            return;
+          }
+
+          if (
+            data.type === "ADCASH_REWARD_COMPLETE" ||
+            data.type === "TOMATO_REWARD_COMPLETE" ||
+            data.type === "NOVATO_REWARD_COMPLETE"
+          ) {
+            completeReward();
+          }
+        });
+
+        completeButton.addEventListener("click", completeReward);
+
+        if (params.get("complete") === "1") {
+          completeReward();
+        }
+      })();
+    </script>
+  </body>
+</html>

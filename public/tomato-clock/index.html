@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomato Clock — by Novato</title>
+  <meta name="description" content="Tomato Clock — a free Pomodoro timer Chrome extension. Focus for 25 minutes, rest for 5. Track your productivity and block distractions.">
+  <meta name="theme-color" content="#ff3300">
+  <link rel="canonical" href="https://novato.dev/tomato-clock/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://novato.dev/tomato-clock/">
+  <meta property="og:title" content="Tomato Clock — by Novato">
+  <meta property="og:description" content="Free Pomodoro timer Chrome extension. Focus for 25 minutes, rest for 5. Track your productivity.">
+  <meta property="og:image" content="https://novato.dev/tomato-clock/TomatoLogo/UntitledExports/Icon-iOS-Default-512x512@1x.png">
+  <meta property="og:site_name" content="Novato">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://novato.dev/tomato-clock/">
+  <meta name="twitter:title" content="Tomato Clock — by Novato">
+  <meta name="twitter:description" content="Free Pomodoro timer Chrome extension. Focus for 25 minutes, rest for 5. Track your productivity.">
+  <meta name="twitter:image" content="https://novato.dev/tomato-clock/TomatoLogo/UntitledExports/Icon-iOS-Default-512x512@1x.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tomato Clock",
+    "operatingSystem": "Chrome",
+    "applicationCategory": "BrowserApplication",
+    "description": "A free Pomodoro timer Chrome extension. Focus for 25 minutes, rest for 5. Track your productivity and block distractions.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Novato",
+      "url": "https://novato.dev"
+    }
+  }
+  </script>
+  <link rel="icon" href="novato.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #fff;
+      --fg: #000;
+      --accent: #ff3300;
+      --border: 3px solid #000;
+      --border-light: 1px solid #000;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Mono', monospace;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.4;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      border-bottom: var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      border-right: var(--border);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -1px;
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    nav {
+      display: flex;
+      align-items: stretch;
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-left: var(--border);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    nav a:hover {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin: 0 15px;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--fg);
+      margin: 3px 0;
+      transition: 0.3s;
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      border-bottom: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      max-width: 400px;
+    }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tomato-large {
+      width: 300px;
+      height: 300px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border: var(--border);
+      background: var(--fg);
+      color: var(--bg);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .product-icon img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: var(--fg);
+      border-color: var(--fg);
+    }
+
+    .install-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a73e8;
+      color: white;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .features-section {
+      border-bottom: var(--border);
+    }
+
+    .section-title {
+      padding: 20px;
+      border-bottom: var(--border);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature {
+      padding: 40px;
+      border-right: var(--border);
+    }
+
+    .feature:last-child {
+      border-right: none;
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: var(--accent);
+    }
+
+    .feature-icon svg {
+      width: 30px;
+      height: 30px;
+      stroke: var(--bg);
+    }
+
+    .feature h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .how-it-works {
+      border-bottom: var(--border);
+    }
+
+    .steps {
+      display: flex;
+    }
+
+    .step {
+      flex: 1;
+      padding: 50px 30px;
+      border-right: var(--border);
+      text-align: center;
+    }
+
+    .step:last-child {
+      border-right: none;
+    }
+
+    .step-number {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .step h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .timer-preview {
+      padding: 80px 20px;
+      text-align: center;
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .timer-preview h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 40px;
+    }
+
+    .timer-display {
+      font-size: clamp(4rem, 15vw, 12rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -4px;
+      line-height: 1;
+      margin-bottom: 30px;
+    }
+
+    .timer-labels {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .timer-label {
+      padding: 8px 20px;
+      border: 2px solid var(--bg);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .timer-label.active {
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .cta-section {
+      padding: 80px 20px;
+      text-align: center;
+      border-bottom: var(--border);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      margin-bottom: 30px;
+      opacity: 0.7;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      border-bottom: var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .footer-logo svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-text p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .feature {
+        border-right: none;
+        border-bottom: var(--border);
+      }
+      .steps {
+        flex-direction: column;
+      }
+      .step {
+        border-right: none;
+        border-bottom: var(--border);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hamburger { display: flex; }
+      .header-inner { flex-direction: row; height: 70px; }
+      .logo { border-right: var(--border); padding: 0 20px; }
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: var(--border);
+        flex-direction: column;
+        display: none;
+        z-index: 99;
+      }
+      nav.active { display: flex; }
+      nav a {
+        border-left: none;
+        border-top: var(--border);
+        padding: 16px;
+        justify-content: center;
+        border-right: var(--border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../Inverted.png" alt="Novato Logo" height="32px" width="32px">
+        NOVATO
+      </a>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../index.html#products">Products</a>
+        <a href="https://chromewebstore.google.com/detail/mkjbkcbndobeppiaefohoejfafoeolnm?utm_source=item-share-cb">Install</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="install-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            Chrome Extension
+          </div>
+          <h1>Tomato<br><span>Clock</span></h1>
+          <p>The classic Pomodoro timer. Focus for 25 minutes. Rest for 5. Repeat. Built by novato.</p>
+          <a href="https://chromewebstore.google.com/detail/mkjbkcbndobeppiaefohoejfafoeolnm?utm_source=item-share-cb" class="btn">
+            Add to Chrome
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        <div class="hero-image">
+          <img class="tomato-large" src="TomatoLogo/UntitledExports/Icon-iOS-Default-512x512@1x.png" alt="Tomato Clock" width="300" height="300">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="section-title">Features</div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h4>Simple Timer</h4>
+        <p>One click to start. 25 minutes of pure focus. No setup required.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <h4>Track Progress</h4>
+        <p>See your completed pomodoros. Watch your productivity grow day by day.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+        <h4>Customizable</h4>
+        <p>Adjust work and break durations. Make it fit YOUR workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="section-title">How It Works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h4>Start Timer</h4>
+        <p>Click the tomato. Focus begins now.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h4>Work</h4>
+        <p>Focus for 25 minutes. No distractions.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h4>Break</h4>
+        <p>Take 5. Stretch. Breathe. Restart.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="timer-preview">
+    <h2>What You'll See</h2>
+    <div class="timer-display">25:00</div>
+    <div class="timer-labels">
+      <span class="timer-label active">Work</span>
+      <span class="timer-label">Short Break</span>
+      <span class="timer-label">Long Break</span>
+    </div>
+  </section>
+
+  <section class="cta-section" id="install">
+    <h2>Get It Free</h2>
+    <p>Tomato Clock is 100% free. No premium. No catch. Just focus.</p>
+    <div class="cta-buttons">
+      <a href="https://chromewebstore.google.com/detail/mkjbkcbndobeppiaefohoejfafoeolnm?utm_source=item-share-cb" class="btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+        Add to Chrome
+      </a>
+      <a href="index.html" class="btn" style="background: transparent; color: #000;">
+        Back to novato
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../novato.png" alt="Novato Logo" height="32px" width="32px" loading="lazy"> 
+        NOVATO
+      </div>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#products">Products</a>
+        <a href="../privacy-policy/index.html">Privacy</a>
+        <a href="../terms/index.html">Terms</a>
+        <a href="mailto:help@novato.dev">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.querySelector('.hamburger');
+      const nav = document.querySelector('nav');
+
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+      });
+
+      // Close menu when clicking a link
+      nav.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') {
+          hamburger.classList.remove('active');
+          nav.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

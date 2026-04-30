@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation & APIs — Integration & Workflow Automation by Novato</title>
+  <meta name="description" content="Connect systems, automate repetitive tasks, wire up tools via API. Base $99, Pro $75/month. Less manual work, more efficiency. Custom integrations.">
+  <meta name="theme-color" content="#ff3300">
+  <link rel="canonical" href="https://novato.dev/services/automation-apis/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://novato.dev/services/automation-apis/">
+  <meta property="og:title" content="Automation & APIs — Integration & Workflow Automation by Novato">
+  <meta property="og:description" content="API integrations and workflow automation. Base $99, Pro $75/month. Connect your tools and automate the repetitive stuff.">
+  <meta property="og:image" content="https://novato.dev/novato.png">
+  <meta property="og:site_name" content="Novato">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://novato.dev/services/automation-apis/">
+  <meta name="twitter:title" content="Automation & APIs — Integration & Workflow Automation by Novato">
+  <meta name="twitter:description" content="Connect systems, automate tasks, integrate APIs. Base $99, Pro $75/month. Save time, reduce errors.">
+  <meta name="twitter:image" content="https://novato.dev/novato.png">
+
+  <link rel="icon" href="../novato.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #fff; --fg: #000; --accent: #ff3300; --border: 3px solid #000;
+      --accent-green: #059669;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Mono', monospace;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.4;
+      font-size: 16px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      border-bottom: var(--border);
+      position: sticky; top: 0; background: var(--bg); z-index: 100;
+    }
+    .header-inner { display: flex; justify-content: space-between; align-items: stretch; height: 70px; }
+    .logo {
+      display: flex; align-items: center; gap: 12px; padding: 0 20px;
+      border-right: var(--border); font-weight: 700; font-size: 1.25rem;
+      letter-spacing: -1px; background: var(--accent); color: var(--bg);
+    }
+    nav { display: flex; align-items: stretch; }
+    nav a {
+      display: flex; align-items: center; padding: 0 24px;
+      border-left: var(--border); font-weight: 700; text-transform: uppercase;
+      font-size: 0.85rem; transition: background 0.1s, color 0.1s;
+    }
+    nav a:hover, nav a.active { background: var(--fg); color: var(--bg); }
+
+    .page-hero {
+      border-bottom: var(--border);
+      padding: 80px 40px;
+      background: var(--fg);
+      color: var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 50%; height: 100%; background: var(--accent);
+      clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+    .page-hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700; text-transform: uppercase; letter-spacing: -3px;
+      line-height: 0.9; margin-bottom: 20px;
+    }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { font-size: 1.15rem; opacity: 0.8; max-width: 550px; margin-bottom: 30px; }
+
+    .service-icon {
+      width: 80px; height: 80px; border: var(--border);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent); margin-bottom: 30px;
+    }
+    .service-icon svg { width: 45px; height: 45px; stroke: var(--bg); }
+
+    .pricing-section { border-bottom: var(--border); padding: 60px 0; background: #f9f9f9; }
+    .section-title {
+      padding: 20px 40px; border-bottom: var(--border);
+      font-size: 1.5rem; font-weight: 700; text-transform: uppercase;
+      display: flex; align-items: center; gap: 12px;
+      background: var(--fg); color: var(--bg); margin-bottom: 0;
+    }
+    .section-title::before { content: '→'; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-bottom: var(--border); }
+    .pricing-card {
+      border-right: var(--border); padding: 50px 40px;
+      position: relative; transition: background 0.2s;
+    }
+    .pricing-card:hover { background: #f0f0f0; }
+    .pricing-card.pro { background: var(--accent); color: var(--bg); }
+    .pricing-card.pro:hover { background: #e62800; }
+    .pricing-card:last-child { border-right: none; }
+    .pricing-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--accent-green); color: #fff;
+      padding: 6px 12px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    }
+    .plan-name { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+    .plan-price { font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+    .plan-price span { font-size: 1rem; opacity: 0.7; }
+    .plan-description { font-size: 0.9rem; opacity: 0.8; margin-bottom: 24px; }
+    .plan-features { list-style: none; margin-bottom: 30px; }
+    .plan-features li {
+      font-size: 0.9rem; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.1);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .plan-features li::before { content: '✓'; font-weight: 700; color: var(--accent-green); }
+    .pricing-card.pro .plan-features li { border-bottom-color: rgba(255,255,255,0.2); }
+    .pricing-card.pro .plan-features li::before { color: #fff; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; border: var(--border); background: var(--fg);
+      color: var(--bg); font-family: inherit; font-size: 1rem;
+      font-weight: 700; text-transform: uppercase; cursor: pointer;
+      transition: all 0.1s; width: 100%; justify-content: center;
+    }
+    .btn:hover { background: var(--accent); color: var(--fg); }
+    .pricing-card.pro .btn { background: var(--bg); color: var(--fg); }
+    .pricing-card.pro .btn:hover { background: var(--fg); color: var(--bg); }
+
+    .description-section { border-bottom: var(--border); padding: 60px 40px; }
+    .section-subtitle { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; color: var(--accent); }
+    .description-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .description-text p { font-size: 0.95rem; margin-bottom: 16px; opacity: 0.8; }
+    .features-list { list-style: none; }
+    .features-list li {
+      font-size: 0.9rem; padding: 12px 0; border-bottom: var(--border-light);
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .features-list li::before { content: '▸'; color: var(--accent); font-weight: 700; }
+
+    .cta-section { padding: 80px 40px; text-align: center; background: var(--fg); color: var(--bg); }
+    .cta-section h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 20px; }
+    .cta-section p { margin-bottom: 30px; opacity: 0.7; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 18px 36px; border: var(--border); background: var(--bg);
+      color: var(--fg); font-family: inherit; font-size: 1rem;
+      font-weight: 700; text-transform: uppercase; cursor: pointer;
+      transition: all 0.1s;
+    }
+    .btn-cta:hover { background: var(--accent); color: var(--fg); }
+    .btn-cta.secondary { background: transparent; color: var(--bg); }
+    .btn-cta.secondary:hover { background: var(--fg); color: var(--bg); }
+
+    footer { border-bottom: var(--border); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; padding: 30px 20px; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.25rem; }
+    .footer-links { display: flex; gap: 30px; flex-wrap: wrap; }
+    .footer-links a { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .page-hero::before { clip-path: none; width: 100%; opacity: 0.1; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card { border-right: none; border-bottom: var(--border); }
+      .pricing-card:last-child { border-bottom: none; }
+      .description-content { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hamburger { display: flex; }
+      .header-inner { flex-direction: row; height: 70px; }
+      .logo { border-right: var(--border); padding: 0 20px; }
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: var(--border);
+        flex-direction: column;
+        display: none;
+        z-index: 99;
+      }
+      nav.active { display: flex; }
+      nav a {
+        border-left: none;
+        border-top: var(--border);
+        padding: 16px;
+        justify-content: center;
+        border-right: var(--border);
+      }
+      .page-hero { padding: 40px 20px; }
+      .pricing-card, .description-section, .cta-section { padding: 40px 20px; }
+      .footer-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../Inverted.png" alt="Novato Logo" height="32px" width="32px">
+        NOVATO
+      </a>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../screen-lab/index.html">Screen Lab</a>
+        <a href="../tomato-clock/index.html">Tomato Clock</a>
+        <a href="../contact/index.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z"/>
+            <path d="M12 2a10 10 0 0 1 10 10"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <h1>Automation &<br><span>APIs</span></h1>
+        <p>Connect your systems, automate repetitive tasks, and wire up different tools via API. Less manual work, more efficiency. Custom integrations with any service that has an API.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section">
+    <div class="section-title">Simple Pricing</div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Base</div>
+        <div class="plan-price">$99<span>/one-time</span></div>
+        <div class="plan-description">Single integration between two services. Perfect for connecting a couple of tools to start automating.</div>
+        <ul class="plan-features">
+          <li>1 API integration (2 services)</li>
+          <li>Basic data mapping & transformation</li>
+          <li>Error handling & retry logic</li>
+          <li>Run up to 1000 tasks/month</li>
+          <li>Email support</li>
+          <li>Documentation & setup guide</li>
+          <li>Source code delivered</li>
+        </ul>
+        <a href="../contact/index.html?service=automation-base" class="btn">Get Started</a>
+      </div>
+
+      <div class="pricing-card pro">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$75<span>/month</span></div>
+        <div class="plan-description">Full automation platform with unlimited integrations, monitoring, and ongoing optimization.</div>
+        <ul class="plan-features">
+          <li>Un integrations across all your tools</li>
+          <li>Complex multi-step workflows</li>
+          <li>Real-time triggers & scheduling</li>
+          <li>Data transformation engine</li>
+          <li>Monitoring dashboard & alerts</li>
+          <li>Priority support (24h response)</li>
+          <li>Unlimited task runs</li>
+          <li>Custom webhook endpoints</li>
+          <li>Monthly optimization & additions</li>
+        </ul>
+        <a href="../contact/index.html?service=automation-pro" class="btn">Choose Pro</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="description-section">
+    <div class="container">
+      <div class="section-subtitle">What We Build</div>
+      <div class="description-content">
+        <div class="description-text">
+          <p>Stop doing repetitive work manually. We build custom automations that connect all your tools — CRMs, email marketing, payment processors, internal databases, you name it. If it has an API, we can connect it.</p>
+          <p>Base tier gets your first integration live fast. Pro gives you a fully automated workflow engine with monitoring, error handling, and a partner who keeps it running smoothly.</p>
+        </div>
+        <div>
+          <ul class="features-list">
+            <li>Zapier-level functionality without the subscription bloat</li>
+            <li>Data sync between any two (or more) platforms</li>
+            <li>Automated reports & notifications</li>
+            <li>Database replication & backup jobs</li>
+            <li>Webhook receivers & custom endpoints</li>
+            <li>Scheduled tasks (cron-like)</li>
+            <li>Transform data between formats (JSON, CSV, XML)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to Automate?</h2>
+    <p>Free up hours every week. Get your first integration running today, or go Pro for unlimited automation.</p>
+    <div class="cta-buttons">
+      <a href="../contact/index.html?service=automation-base" class="btn-cta">
+        Start with Base ($99)
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="../contact/index.html?service=automation-pro" class="btn-cta secondary">
+        Go Pro ($75/mo)
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../novato.png" alt="Novato Logo" height="32px" width="32px" loading="lazy">
+        Novato
+      </div>
+      <div class="footer-links">
+        <a href="../index.html#products">Products</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#about">About</a>
+        <a href="../screen-lab/index.html">Screen Lab</a>
+        <a href="../tomato-clock/index.html">Tomato Clock</a>
+        <a href="../privacy-policy/index.html">Privacy</a>
+        <a href="../terms/index.html">Terms</a>
+        <a href="../contact/index.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.querySelector('.hamburger');
+      const nav = document.querySelector('nav');
+
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+      });
+
+      // Close menu when clicking a link
+      nav.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') {
+          hamburger.classList.remove('active');
+          nav.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

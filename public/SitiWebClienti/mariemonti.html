@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mari & Monti — Ristorante Pizzeria · Melzo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & VARIABLES ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:    #4A8B8C;
+      --teal-dk: #3a7172;
+      --earth:   #6E6358;
+      --earth-lt:#9a8f82;
+      --cream:   #FAF8F4;
+      --white:   #FFFFFF;
+      --yellow:  #F4D03F;
+      --text:    #2a2420;
+      --light:   #f0ede8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ───────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250,248,244,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(110,99,88,0.12);
+      transition: padding .3s;
+    }
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      letter-spacing: .2em;
+      color: var(--teal);
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--earth);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--teal);
+      border: none;
+      padding: .65rem 1.6rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--teal-dk); }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 5rem 5rem 6rem;
+      background: var(--cream);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem; height: 1px;
+      background: var(--teal);
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--earth);
+      margin-bottom: .5rem;
+    }
+    .hero-title span { color: var(--teal); }
+
+    .hero-divider {
+      width: 4rem; height: 2px;
+      background: var(--yellow);
+      margin: 1.8rem 0;
+    }
+
+    .hero-sub {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--earth);
+      line-height: 1.8;
+      max-width: 28ch;
+      font-style: italic;
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--teal);
+      padding: 1rem 2.2rem;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal-dk); transform: translateY(-1px); }
+
+    .btn-outline {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--earth);
+      border: 1.5px solid var(--earth);
+      padding: 1rem 2.2rem;
+      text-decoration: none;
+      transition: all .2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--earth); color: var(--white); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 8s ease;
+    }
+    .hero-right:hover img { transform: scale(1.04); }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 3rem; left: -2rem;
+      background: var(--white);
+      padding: 1.4rem 2rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12);
+      z-index: 2;
+    }
+    .hero-badge-top {
+      font-family: 'Lato', sans-serif;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--earth-lt);
+      margin-bottom: .3rem;
+    }
+    .hero-badge-main {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* ── STRIP ────────────────────────────────────────────────── */
+    .strip {
+      background: var(--teal);
+      color: var(--white);
+      padding: 1.1rem 0;
+      overflow: hidden;
+    }
+    .strip-inner {
+      display: flex; gap: 5rem;
+      white-space: nowrap;
+      animation: marquee 22s linear infinite;
+    }
+    .strip-item {
+      font-family: 'Lato', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .25em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .strip-item::before { content: '✦'; font-size: .5rem; opacity: .7; }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMONS ──────────────────────────────────────── */
+    section { padding: 7rem 6rem; }
+    .sec-label {
+      font-family: 'Lato', sans-serif;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--teal);
+      display: flex; align-items: center; gap: .8rem;
+      margin-bottom: 1rem;
+    }
+    .sec-label::before {
+      content: ''; display: block;
+      width: 2rem; height: 1px; background: var(--teal);
+    }
+    .sec-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 600;
+      color: var(--earth);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .sec-line {
+      width: 3rem; height: 2px; background: var(--yellow);
+      margin-bottom: 2rem;
+    }
+
+    /* ── CHI SIAMO ────────────────────────────────────────────── */
+    #chi-siamo {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: .95rem;
+      line-height: 1.9;
+      color: var(--earth);
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .about-img {
+      width: 100%; aspect-ratio: 1;
+      object-fit: cover;
+    }
+    .about-img.tall {
+      grid-row: span 2;
+      aspect-ratio: auto;
+      height: 100%;
+    }
+    .stat-row {
+      display: flex; gap: 3rem;
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(110,99,88,.15);
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--teal);
+      display: block;
+    }
+    .stat-lbl {
+      font-family: 'Lato', sans-serif;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--earth-lt);
+    }
+
+    /* ── SPECIALITÀ ───────────────────────────────────────────── */
+    #specialita {
+      background: var(--cream);
+    }
+    .spec-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .spec-card {
+      background: var(--white);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .spec-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+    .spec-card:hover .spec-img { transform: scale(1.06); }
+    .spec-img-wrap { overflow: hidden; aspect-ratio: 4/3; }
+    .spec-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .spec-body { padding: 1.6rem; }
+    .spec-tag {
+      font-family: 'Lato', sans-serif;
+      font-size: .6rem; font-weight: 700;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: .5rem;
+    }
+    .spec-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--earth);
+      margin-bottom: .6rem;
+    }
+    .spec-desc {
+      font-size: .82rem; line-height: 1.7;
+      color: var(--earth-lt); font-weight: 300;
+    }
+
+    /* ── MENU COMPLETO ────────────────────────────────────────── */
+    #menu {
+      background: var(--earth);
+      color: var(--white);
+      padding: 7rem 6rem;
+    }
+    #menu .sec-title { color: var(--white); }
+    #menu .sec-label { color: var(--yellow); }
+    #menu .sec-label::before { background: var(--yellow); }
+    .menu-tabs {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      margin: 3rem 0 0; padding: 0; list-style: none;
+    }
+    .menu-tab {
+      font-family: 'Lato', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.2);
+      padding: .7rem 1.4rem; cursor: pointer;
+      transition: all .25s;
+    }
+    .menu-tab:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
+    .menu-tab.active { background: var(--yellow); color: var(--earth); border-color: var(--yellow); }
+    .menu-panel { display: none; margin-top: 3rem; }
+    .menu-panel.active { display: block; }
+    .menu-layout {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0 3rem;
+      margin-top: 1rem;
+    }
+    .menu-divider { background: rgba(255,255,255,.15); }
+    .menu-cat-title {
+      font-family: 'Lato', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 2rem; margin-top: 2.5rem;
+      padding-bottom: .8rem;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .menu-cat-title:first-child { margin-top: 0; }
+    .menu-item {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      padding: .75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .menu-item-name {
+      font-family: 'Cinzel', serif;
+      font-size: .9rem; font-weight: 400;
+      color: rgba(255,255,255,.9);
+    }
+    .menu-item-price {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem; font-weight: 300;
+      color: var(--yellow);
+      flex-shrink: 0; margin-left: 1rem;
+    }
+    .menu-item-sub {
+      font-size: .75rem; font-weight: 300;
+      color: rgba(255,255,255,.45);
+      display: block;
+      margin-top: .2rem;
+      font-style: italic;
+    }
+    .menu-info-bar {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,.12);
+      font-family: 'Lato', sans-serif; font-size: .75rem;
+      color: rgba(255,255,255,.5);
+    }
+    .menu-info-bar span { display: flex; align-items: center; gap: .4rem; }
+    .btn-light {
+      font-family: 'Lato', sans-serif;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--earth);
+      background: var(--white);
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s, color .2s;
+    }
+    .btn-light:hover { background: var(--yellow); }
+
+    /* ── SPAZI & GIARDINO ─────────────────────────────────────── */
+    #spazi {
+      background: var(--white);
+      padding: 0;
+    }
+    .spazi-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
+    .spazi-img { overflow: hidden; }
+    .spazi-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .spazi-content {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 5rem;
+      background: var(--cream);
+    }
+    .spazi-features { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .spazi-feat {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--white);
+    }
+    .spazi-feat-icon {
+      width: 2.4rem; height: 2.4rem; flex-shrink: 0;
+      background: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 1rem;
+    }
+    .spazi-feat-text strong {
+      font-family: 'Cinzel', serif; font-size: .85rem;
+      color: var(--earth); display: block; margin-bottom: .2rem;
+    }
+    .spazi-feat-text span {
+      font-size: .8rem; color: var(--earth-lt); font-weight: 300; line-height: 1.6;
+    }
+
+    /* ── EVENTI ───────────────────────────────────────────────── */
+    #eventi {
+      background: var(--cream);
+    }
+    .eventi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .evento-card {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 2rem; align-items: center;
+      background: var(--white);
+      padding: 2.5rem;
+      border-left: 3px solid var(--teal);
+      transition: box-shadow .2s;
+    }
+    .evento-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,.08); }
+    .evento-icon { font-size: 2.5rem; line-height: 1; }
+    .evento-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--earth); margin-bottom: .4rem;
+    }
+    .evento-desc {
+      font-size: .82rem; line-height: 1.7;
+      color: var(--earth-lt); font-weight: 300;
+    }
+
+    /* ── GALLERIA ─────────────────────────────────────────────── */
+    #galleria {
+      padding: 0;
+      background: var(--white);
+    }
+    .gallery-mosaic {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 260px);
+    }
+    .gal-item { overflow: hidden; position: relative; }
+    .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gal-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s;
+      display: block;
+    }
+    .gal-item:hover img { transform: scale(1.08); }
+    .gal-overlay {
+      position: absolute; inset: 0;
+      background: rgba(74,139,140,.0);
+      transition: background .3s;
+    }
+    .gal-item:hover .gal-overlay { background: rgba(74,139,140,.2); }
+
+    /* ── ORARI & CONTATTI ─────────────────────────────────────── */
+    #contatti {
+      background: var(--earth);
+      color: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .contatti-left {
+      padding: 7rem 5rem;
+    }
+    #contatti .sec-label { color: var(--yellow); }
+    #contatti .sec-label::before { background: var(--yellow); }
+    #contatti .sec-title { color: var(--white); }
+    .orari-table { margin-top: 2.5rem; }
+    .orario-row {
+      display: flex; justify-content: space-between;
+      padding: .9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      font-size: .88rem;
+    }
+    .orario-giorno { font-weight: 300; color: rgba(255,255,255,.7); }
+    .orario-ora { font-weight: 700; font-family: 'Lato', sans-serif; letter-spacing: .05em; }
+    .orario-chiuso { color: rgba(255,255,255,.3); }
+
+    .contact-info { margin-top: 2.5rem; }
+    .contact-row {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-icon {
+      width: 2.2rem; height: 2.2rem;
+      background: rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: .95rem;
+    }
+    .contact-lbl {
+      font-family: 'Lato', sans-serif;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--yellow); display: block; margin-bottom: .15rem;
+    }
+    .contact-val {
+      font-size: .9rem; color: rgba(255,255,255,.85); font-weight: 300;
+    }
+    .contact-val a { color: inherit; text-decoration: none; }
+    .contact-val a:hover { color: var(--yellow); }
+
+    .social-row { display: flex; gap: 1rem; margin-top: 2.5rem; }
+    .social-btn {
+      font-family: 'Lato', sans-serif;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,.3);
+      padding: .6rem 1.2rem;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .social-btn:hover { background: var(--white); color: var(--earth); }
+
+    .contatti-map {
+      position: relative;
+    }
+    .contatti-map iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+      filter: grayscale(30%) contrast(1.1);
+    }
+
+    /* ── PRENOTAZIONE BANNER ──────────────────────────────────── */
+    #prenota {
+      background: var(--teal);
+      padding: 7rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .prenota-text .sec-label { color: rgba(255,255,255,.7); }
+    .prenota-text .sec-label::before { background: rgba(255,255,255,.7); }
+    .prenota-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      color: var(--white); font-weight: 600; line-height: 1.2;
+    }
+    .prenota-sub {
+      font-size: .9rem; color: rgba(255,255,255,.75);
+      font-weight: 300; margin-top: .8rem; font-style: italic;
+    }
+    .prenota-form {
+      background: var(--white);
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,.15);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form-control {
+      width: 100%; padding: 1rem 1.2rem;
+      font-family: 'Open Sans', sans-serif; font-size: .9rem;
+      border: 1px solid rgba(110,99,88,.2);
+      background: var(--cream); color: var(--text);
+      transition: border-color .3s, outline .3s;
+    }
+    .form-control:focus { border-color: var(--teal); outline: none; }
+    .form-label {
+      display: block; font-family: 'Lato', sans-serif; font-size: .7rem;
+      font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--earth); margin-bottom: .5rem;
+    }
+    .form-submit {
+      width: 100%; text-align: center; margin-top: 1rem; border: none; cursor: pointer;
+    }
+    .form-message {
+      margin-top: 1rem; padding: 1rem; font-size: .85rem; display: none; text-align: center; font-weight: 600;
+    }
+    .form-message.success { background: #e6f4ea; color: #1e8e3e; border: 1px solid #ceead6; }
+
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: #1c1814;
+      color: rgba(255,255,255,.4);
+      padding: 2.5rem 6rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Cinzel', serif;
+      font-size: .9rem; letter-spacing: .2em;
+      color: rgba(255,255,255,.7);
+    }
+    footer p { font-size: .75rem; }
+    footer a { color: rgba(255,255,255,.4); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+
+    /* ── SCROLL ANIMATIONS ────────────────────────────────────── */
+    [data-reveal] {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    [data-reveal].is-visible {
+      opacity: 1; transform: translateY(0);
+    }
+    [data-reveal][data-delay="1"] { transition-delay: .1s; }
+    [data-reveal][data-delay="2"] { transition-delay: .2s; }
+    [data-reveal][data-delay="3"] { transition-delay: .3s; }
+    [data-reveal][data-delay="4"] { transition-delay: .4s; }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.8rem; }
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 8rem 1.8rem 3rem; }
+      .hero-right { height: 55vw; }
+      .hero-badge { display: none; }
+      #chi-siamo { grid-template-columns: 1fr; gap: 3rem; }
+      .spec-grid { grid-template-columns: 1fr 1fr; }
+      .menu-layout { grid-template-columns: 1fr; }
+      .menu-divider { display: none; }
+      .spazi-grid { grid-template-columns: 1fr; }
+      .spazi-img { height: 50vw; }
+      .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      #contatti { grid-template-columns: 1fr; }
+      .contatti-map { height: 300px; }
+      #prenota { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .prenota-form { padding: 2rem 1.5rem; }
+      footer { padding: 2rem 1.8rem; }
+      .eventi-grid { grid-template-columns: 1fr; }
+      #menu { padding: 5rem 1.8rem; }
+    }
+    @media (max-width: 600px) {
+      .spec-grid { grid-template-columns: 1fr; }
+      .stat-row { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══════════════════════════════════════════════════ -->
+<nav>
+  <span class="nav-logo">Mari &amp; Monti</span>
+  <ul class="nav-links">
+    <li><a href="#chi-siamo">Chi Siamo</a></li>
+    <li><a href="#specialita">Specialità</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#spazi">Gli Spazi</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+  </ul>
+  <a href="#prenota" class="nav-cta">Prenota un Tavolo</a>
+</nav>
+
+
+<!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow" data-reveal>Ristorante · Pizzeria · Melzo</div>
+    <h1 class="hero-title" data-reveal data-delay="1">
+      Mari<br><span>&amp;</span><br>Monti
+    </h1>
+    <div class="hero-divider" data-reveal data-delay="2"></div>
+    <p class="hero-sub" data-reveal data-delay="2">
+      Sapori autentici del mare e della terra,<br>serviti con passione nel cuore di Melzo.
+    </p>
+    <div class="hero-actions" data-reveal data-delay="3">
+      <a href="#prenota" class="btn-primary">Prenota un Tavolo</a>
+      <a href="#menu" class="btn-outline">Scopri il Menu</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img
+      src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80"
+      alt="Piatto di pesce fresco Mari e Monti"
+      loading="eager"
+    />
+    <div class="hero-badge">
+      <div class="hero-badge-top">Melzo, Milano</div>
+      <div class="hero-badge-main">Dal 1990</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ STRIP ════════════════════════════════════════════════════ -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Specialità di carne</span>
+    <span class="strip-item">Crudi di mare</span>
+    <span class="strip-item">Pizze artigianali</span>
+    <span class="strip-item">Serate karaoke</span>
+    <span class="strip-item">Cerimonie &amp; compleanni</span>
+    <span class="strip-item">Giardino estivo</span>
+    <span class="strip-item">Melzo · Milano</span>
+    <span class="strip-item">Specialità di carne</span>
+    <span class="strip-item">Crudi di mare</span>
+    <span class="strip-item">Pizze artigianali</span>
+    <span class="strip-item">Serate karaoke</span>
+    <span class="strip-item">Cerimonie &amp; compleanni</span>
+    <span class="strip-item">Giardino estivo</span>
+    <span class="strip-item">Melzo · Milano</span>
+  </div>
+</div>
+
+
+<!-- ═══ CHI SIAMO ═════════════════════════════════════════════════ -->
+<section id="chi-siamo">
+  <div class="about-text">
+    <div class="sec-label" data-reveal>La Nostra Storia</div>
+    <h2 class="sec-title" data-reveal data-delay="1">Un luogo dove<br>il mare incontra i monti</h2>
+    <div class="sec-line" data-reveal data-delay="1"></div>
+    <p data-reveal data-delay="2">
+      Da anni, il Ristorante Pizzeria <strong>Mari &amp; Monti</strong> è un punto di riferimento per chi cerca
+      autenticità e qualità a Melzo. La nostra cucina nasce dall'incontro tra la freschezza
+      del pesce e la genuinità delle carni selezionate, in un ambiente accogliente e familiare.
+    </p>
+    <p data-reveal data-delay="2">
+      Ogni piatto racconta una storia: dalle ricette della tradizione italiana rivisitate con
+      cura, alle proposte creative che cambiano con le stagioni. Vi aspettiamo per un'esperienza
+      che va oltre il semplice pasto.
+    </p>
+    <div class="stat-row" data-reveal data-delay="3">
+      <div class="stat">
+        <span class="stat-num">🐟</span>
+        <span class="stat-lbl">Pesce fresco</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">🥩</span>
+        <span class="stat-lbl">Carni selezionate</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">🍕</span>
+        <span class="stat-lbl">Pizze artigianali</span>
+      </div>
+    </div>
+  </div>
+  <div class="about-grid" data-reveal data-delay="2">
+    <img
+      class="about-img tall"
+      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
+      alt="Sala ristorante"
+    />
+    <img
+      class="about-img"
+      src="https://images.unsplash.com/photo-1535140728325-a4d3707eee61?w=600&q=80"
+      alt="Crudi di mare"
+    />
+    <img
+      class="about-img"
+      src="https://images.unsplash.com/photo-1558030006-450675393462?w=600&q=80"
+      alt="Carne alla griglia"
+    />
+  </div>
+</section>
+
+
+<!-- ═══ SPECIALITÀ ════════════════════════════════════════════════ -->
+<section id="specialita">
+  <div class="spec-header">
+    <div>
+      <div class="sec-label" data-reveal>Il Meglio della Casa</div>
+      <h2 class="sec-title" data-reveal data-delay="1">Le Nostre<br>Specialità</h2>
+      <div class="sec-line" data-reveal data-delay="1"></div>
+    </div>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-card" data-reveal>
+      <div class="spec-img-wrap">
+        <img class="spec-img"
+          src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=700&q=80"
+          alt="Crudi di mare" />
+      </div>
+      <div class="spec-body">
+        <div class="spec-tag">Il Mare · Antipasto</div>
+        <div class="spec-name">Crudi di Mare</div>
+        <p class="spec-desc">Selezione di pesce e frutti di mare freschi: ostriche, gamberi, scampi e molto altro. Freschezza garantita ogni giorno.</p>
+      </div>
+    </div>
+    <div class="spec-card" data-reveal data-delay="1">
+      <div class="spec-img-wrap">
+        <img class="spec-img"
+          src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=700&q=80"
+          alt="Tagliata di manzo" />
+      </div>
+      <div class="spec-body">
+        <div class="spec-tag">I Monti · Secondo</div>
+        <div class="spec-name">Tagliata di Manzo</div>
+        <p class="spec-desc">Carne selezionata, cotta alla perfezione su brace viva, servita con rucola, grana e pomodorini.</p>
+      </div>
+    </div>
+    <div class="spec-card" data-reveal data-delay="2">
+      <div class="spec-img-wrap">
+        <img class="spec-img"
+          src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=80"
+          alt="Pizza artigianale" />
+      </div>
+      <div class="spec-body">
+        <div class="spec-tag">Pizzeria · Classici</div>
+        <div class="spec-name">Pizze Artigianali</div>
+        <p class="spec-desc">Impasto a lunga lievitazione, ingredienti selezionati e fantasia dello chef. Dal classico al gourmet.</p>
+      </div>
+    </div>
+    <div class="spec-card" data-reveal data-delay="1">
+      <div class="spec-img-wrap">
+        <img class="spec-img"
+          src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=700&q=80"
+          alt="Spaghetti alle vongole" />
+      </div>
+      <div class="spec-body">
+        <div class="spec-tag">Il Mare · Primo</div>
+        <div class="spec-name">Spaghetti alle Vongole</div>
+        <p class="spec-desc">Il grande classico del mare: vongole veraci, aglio, olio, prezzemolo. Sapori veri, ricetta tradizionale.</p>
+      </div>
+    </div>
+    <div class="spec-card" data-reveal data-delay="2">
+      <div class="spec-img-wrap">
+        <img class="spec-img"
+          src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700&q=80"
+          alt="Grigliata mista" />
+      </div>
+      <div class="spec-body">
+        <div class="spec-tag">I Monti · Secondo</div>
+        <div class="spec-name">Grigliata Mista</div>
+        <p class="spec-desc">Un trionfo di carni pregiate: salsiccia artigianale, costine, filetto e spiedini alla brace.</p>
+      </div>
+    </div>
+    <div class="spec-card" data-reveal data-delay="3">
+      <div class="spec-img-wrap">
+        <img class="spec-img"
+          src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=700&q=80"
+          alt="Dolci della casa" />
+      </div>
+      <div class="spec-body">
+        <div class="spec-tag">Dolci · Fine pasto</div>
+        <div class="spec-name">Dolci della Casa</div>
+        <p class="spec-desc">Tiramisù, panna cotta al pistacchio e dessert del giorno preparati artigianalmente dalla nostra cucina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ MENU COMPLETO ═════════════════════════════════════════════ -->
+<section id="menu">
+  <div class="sec-label" data-reveal>Il Nostro Menu</div>
+  <h2 class="sec-title" data-reveal data-delay="1">Menu<br>Completo</h2>
+  <div class="sec-line" data-reveal data-delay="1"></div>
+
+  <!-- TAB NAVIGATION -->
+  <div class="menu-tabs" data-reveal data-delay="2">
+    <button class="menu-tab active" data-tab="antipasti">Antipasti</button>
+    <button class="menu-tab" data-tab="primi">Primi</button>
+    <button class="menu-tab" data-tab="secondi">Secondi</button>
+    <button class="menu-tab" data-tab="pizze">Pizze</button>
+    <button class="menu-tab" data-tab="dolci">Dolci &amp; Bevande</button>
+  </div>
+
+  <!-- ── ANTIPASTI ──────────────────── -->
+  <div class="menu-panel active" data-panel="antipasti">
+    <div class="menu-layout">
+      <div>
+        <div class="menu-cat-title">🌊 Antipasti di Mare</div>
+        <div class="menu-item"><div><span class="menu-item-name">Piatto di Crudi Misti</span><span class="menu-item-sub">ostriche, gamberi, scampi, tartare</span></div><span class="menu-item-price">€ 18</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Carpaccio di Tonno</span><span class="menu-item-sub">con pistacchi e limone</span></div><span class="menu-item-price">€ 15</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Fritto Misto di Pesce</span><span class="menu-item-sub">calamari, gamberi, zucchine</span></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Tartare di Salmone</span><span class="menu-item-sub">avocado, sesamo, salsa ponzu</span></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Polpo alla Griglia</span><span class="menu-item-sub">con patate e olive taggiasche</span></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Cozze alla Marinara</span><span class="menu-item-sub">pomodoro, aglio, prezzemolo</span></div><span class="menu-item-price">€ 12</span></div>
+      </div>
+      <div class="menu-divider"></div>
+      <div>
+        <div class="menu-cat-title">🏔 Antipasti di Terra</div>
+        <div class="menu-item"><div><span class="menu-item-name">Tagliere di Salumi</span><span class="menu-item-sub">selezione di norcineria locale</span></div><span class="menu-item-price">€ 12</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Tagliere di Formaggi</span><span class="menu-item-sub">miele, confetture, noci</span></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Bruschette Miste</span><span class="menu-item-sub">pomodoro, nduja, lardo</span></div><span class="menu-item-price">€ 8</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Carpaccio di Bresaola</span><span class="menu-item-sub">rucola, grana, limone</span></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Verdure Grigliate</span><span class="menu-item-sub">zucchine, melanzane, peperoni</span></div><span class="menu-item-price">€ 9</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Burrata Pugliese</span><span class="menu-item-sub">pomodorini, basilico, olio evo</span></div><span class="menu-item-price">€ 12</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRIMI ──────────────────────── -->
+  <div class="menu-panel" data-panel="primi">
+    <div class="menu-layout">
+      <div>
+        <div class="menu-cat-title">🌊 Primi di Mare</div>
+        <div class="menu-item"><div><span class="menu-item-name">Spaghetti alle Vongole</span><span class="menu-item-sub">vongole veraci, aglio, olio</span></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Risotto ai Frutti di Mare</span><span class="menu-item-sub">cozze, vongole, gamberi</span></div><span class="menu-item-price">€ 17</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Paccheri allo Scoglio</span><span class="menu-item-sub">frutti di mare, pomodorini</span></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Linguine all'Astice</span><span class="menu-item-sub">mezzo astice, bisque</span></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Spaghetti al Nero di Seppia</span><span class="menu-item-sub">seppie, aglio, peperoncino</span></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Risotto alla Pescatora</span><span class="menu-item-sub">misto mare, zafferano</span></div><span class="menu-item-price">€ 18</span></div>
+      </div>
+      <div class="menu-divider"></div>
+      <div>
+        <div class="menu-cat-title">🏔 Primi di Terra</div>
+        <div class="menu-item"><div><span class="menu-item-name">Tagliatelle al Ragù</span><span class="menu-item-sub">ragù di carne, parmigiano</span></div><span class="menu-item-price">€ 12</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Risotto ai Funghi Porcini</span><span class="menu-item-sub">porcini freschi, prezzemolo</span></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Lasagna della Casa</span><span class="menu-item-sub">ragù, besciamella, parmigiano</span></div><span class="menu-item-price">€ 12</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Gnocchi al Gorgonzola</span><span class="menu-item-sub">gorgonzola dolce, noci</span></div><span class="menu-item-price">€ 11</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Penne all'Arrabbiata</span><span class="menu-item-sub">pomodoro, aglio, peperoncino</span></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Carbonara</span><span class="menu-item-sub">guanciale, pecorino, uovo</span></div><span class="menu-item-price">€ 12</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECONDI ────────────────────── -->
+  <div class="menu-panel" data-panel="secondi">
+    <div class="menu-layout">
+      <div>
+        <div class="menu-cat-title">🌊 Secondi di Mare</div>
+        <div class="menu-item"><div><span class="menu-item-name">Branzino al Forno</span><span class="menu-item-sub">patate, olive, capperi</span></div><span class="menu-item-price">€ 20</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Grigliata Mista di Pesce</span><span class="menu-item-sub">gamberi, calamari, spada</span></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Orata al Sale</span><span class="menu-item-sub">orata intera in crosta di sale</span></div><span class="menu-item-price">€ 20</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Frittura di Calamari</span><span class="menu-item-sub">con verdure di stagione</span></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Filetto di Tonno</span><span class="menu-item-sub">scottato, sesamo, salsa soia</span></div><span class="menu-item-price">€ 22</span></div>
+      </div>
+      <div class="menu-divider"></div>
+      <div>
+        <div class="menu-cat-title">🏔 Secondi di Carne</div>
+        <div class="menu-item"><div><span class="menu-item-name">Tagliata di Manzo</span><span class="menu-item-sub">rucola, grana, pomodorini</span></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Grigliata Mista di Carne</span><span class="menu-item-sub">salsiccia, costine, filetto, spiedini</span></div><span class="menu-item-price">€ 20</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Filetto al Pepe Verde</span><span class="menu-item-sub">salsa al pepe verde, patate</span></div><span class="menu-item-price">€ 24</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Costolette d'Agnello</span><span class="menu-item-sub">alla scottadito, rosmarino</span></div><span class="menu-item-price">€ 20</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Pollo alla Griglia</span><span class="menu-item-sub">limone, erbe aromatiche</span></div><span class="menu-item-price">€ 14</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PIZZE ──────────────────────── -->
+  <div class="menu-panel" data-panel="pizze">
+    <div class="menu-layout">
+      <div>
+        <div class="menu-cat-title">🍕 Pizze Classiche</div>
+        <div class="menu-item"><div><span class="menu-item-name">Margherita</span><span class="menu-item-sub">pomodoro, fior di latte, basilico</span></div><span class="menu-item-price">€ 8</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Marinara</span><span class="menu-item-sub">pomodoro, aglio, origano, olio</span></div><span class="menu-item-price">€ 7</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Napoli</span><span class="menu-item-sub">pomodoro, mozzarella, acciughe, capperi</span></div><span class="menu-item-price">€ 9</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Diavola</span><span class="menu-item-sub">pomodoro, mozzarella, salame piccante</span></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Quattro Stagioni</span><span class="menu-item-sub">prosciutto, funghi, carciofi, olive</span></div><span class="menu-item-price">€ 11</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Capricciosa</span><span class="menu-item-sub">prosciutto cotto, funghi, olive, carciofi</span></div><span class="menu-item-price">€ 11</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Quattro Formaggi</span><span class="menu-item-sub">mozzarella, gorgonzola, fontina, parmigiano</span></div><span class="menu-item-price">€ 11</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Prosciutto e Funghi</span><span class="menu-item-sub">pomodoro, mozzarella, prosciutto cotto, funghi</span></div><span class="menu-item-price">€ 10</span></div>
+      </div>
+      <div class="menu-divider"></div>
+      <div>
+        <div class="menu-cat-title">⭐ Pizze Speciali</div>
+        <div class="menu-item"><div><span class="menu-item-name">Marinara Gourmet</span><span class="menu-item-sub">gamberi, zucchine, burrata</span></div><span class="menu-item-price">€ 13</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Mari e Monti</span><span class="menu-item-sub">frutti di mare, porcini, pomodorini</span></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Calzone Ripieno</span><span class="menu-item-sub">ricotta, prosciutto, mozzarella</span></div><span class="menu-item-price">€ 11</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Pizza Tonno e Cipolla</span><span class="menu-item-sub">pomodoro, mozzarella, tonno, cipolla rossa</span></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Focaccia Farcita</span><span class="menu-item-sub">prosciutto crudo, stracciatella, rucola</span></div><span class="menu-item-price">€ 12</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Pizza del Giorno</span><span class="menu-item-sub">chiedi al cameriere</span></div><span class="menu-item-price">su rich.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DOLCI & BEVANDE ────────────── -->
+  <div class="menu-panel" data-panel="dolci">
+    <div class="menu-layout">
+      <div>
+        <div class="menu-cat-title">🍰 Dolci</div>
+        <div class="menu-item"><div><span class="menu-item-name">Tiramisù</span><span class="menu-item-sub">ricetta tradizionale della casa</span></div><span class="menu-item-price">€ 7</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Panna Cotta al Pistacchio</span><span class="menu-item-sub">con coulis di frutti rossi</span></div><span class="menu-item-price">€ 7</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Semifreddo al Torroncino</span><span class="menu-item-sub">con cioccolato fondente</span></div><span class="menu-item-price">€ 7</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Tortino al Cioccolato</span><span class="menu-item-sub">cuore morbido, gelato alla vaniglia</span></div><span class="menu-item-price">€ 8</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Dessert del Giorno</span><span class="menu-item-sub">chiedi al cameriere</span></div><span class="menu-item-price">su rich.</span></div>
+      </div>
+      <div class="menu-divider"></div>
+      <div>
+        <div class="menu-cat-title">🍷 Bevande</div>
+        <div class="menu-item"><div><span class="menu-item-name">Acqua Minerale</span><span class="menu-item-sub">naturale o frizzante, 75cl</span></div><span class="menu-item-price">€ 2.50</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Bibite</span><span class="menu-item-sub">coca cola, fanta, sprite, chinotto</span></div><span class="menu-item-price">€ 3</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Birra alla Spina</span><span class="menu-item-sub">media 40cl</span></div><span class="menu-item-price">€ 5</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Vino della Casa</span><span class="menu-item-sub">rosso, bianco o rosé — 1/4 lt</span></div><span class="menu-item-price">€ 4</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Vino della Casa</span><span class="menu-item-sub">rosso, bianco o rosé — 1/2 lt</span></div><span class="menu-item-price">€ 7</span></div>
+        <div class="menu-item"><div><span class="menu-item-name">Caffè / Amaro</span><span class="menu-item-sub">espresso, corretto, amaro</span></div><span class="menu-item-price">da € 1.50</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-info-bar" data-reveal>
+    <span>📋 Coperto: € 2.50</span>
+    <span>⚠️ Allergeni: chiedi al personale</span>
+    <span>📞 Per il menu del giorno: 02 9572 2603</span>
+  </div>
+</section>
+
+
+<!-- ═══ SPAZI ═════════════════════════════════════════════════════ -->
+<section id="spazi">
+  <div class="spazi-grid">
+    <div class="spazi-img" data-reveal>
+      <img
+        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80"
+        alt="Sala interna del ristorante"
+      />
+    </div>
+    <div class="spazi-content">
+      <div class="sec-label" data-reveal>I Nostri Spazi</div>
+      <h2 class="sec-title" data-reveal data-delay="1">Sale Eleganti<br>&amp; Giardino Estivo</h2>
+      <div class="sec-line" data-reveal data-delay="1"></div>
+      <p style="font-size:.9rem;line-height:1.9;color:var(--earth);font-weight:300;" data-reveal data-delay="2">
+        Che si tratti di una cena romantica, di un compleanno in famiglia o di un evento aziendale,
+        i nostri spazi si adattano a ogni occasione. Scopri le sale interne e il nostro giardino,
+        perfetto per le serate estive.
+      </p>
+      <div class="spazi-features" data-reveal data-delay="3">
+        <div class="spazi-feat">
+          <div class="spazi-feat-icon">🌿</div>
+          <div class="spazi-feat-text">
+            <strong>Giardino Estivo</strong>
+            <span>Un'oasi verde all'aperto per cene sotto le stelle, disponibile nella bella stagione.</span>
+          </div>
+        </div>
+        <div class="spazi-feat">
+          <div class="spazi-feat-icon">🎉</div>
+          <div class="spazi-feat-text">
+            <strong>Sale per Cerimonie</strong>
+            <span>Compleanni, anniversari e ricevimenti personalizzati con menu dedicati.</span>
+          </div>
+        </div>
+        <div class="spazi-feat">
+          <div class="spazi-feat-icon">🎶</div>
+          <div class="spazi-feat-text">
+            <strong>Serate Karaoke</strong>
+            <span>Appuntamenti regolari per divertirsi insieme in un'atmosfera conviviale.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ EVENTI ════════════════════════════════════════════════════ -->
+<section id="eventi">
+  <div class="sec-label" data-reveal>Cosa Succede da Noi</div>
+  <h2 class="sec-title" data-reveal data-delay="1">Serate &amp;<br>Occasioni Speciali</h2>
+  <div class="sec-line" data-reveal data-delay="1"></div>
+  <div class="eventi-grid">
+    <div class="evento-card" data-reveal>
+      <div class="evento-icon">🎤</div>
+      <div>
+        <div class="evento-title">Serate Karaoke</div>
+        <p class="evento-desc">Canta le tue canzoni preferite in un'atmosfera festosa e accogliente. Un modo unico per vivere il ristorante anche la sera.</p>
+      </div>
+    </div>
+    <div class="evento-card" data-reveal data-delay="1">
+      <div class="evento-icon">🎂</div>
+      <div>
+        <div class="evento-title">Compleanni &amp; Anniversari</div>
+        <p class="evento-desc">Rendiamo speciale il tuo giorno con menu personalizzati, decorazioni e un'attenzione unica per te e i tuoi ospiti.</p>
+      </div>
+    </div>
+    <div class="evento-card" data-reveal data-delay="2">
+      <div class="evento-icon">👨‍👩‍👧</div>
+      <div>
+        <div class="evento-title">Cerimonie e Ricevimenti</div>
+        <p class="evento-desc">Organizziamo ricevimenti su misura: battesimi, comunioni, lauree e ogni altra ricorrenza da celebrare con gusto.</p>
+      </div>
+    </div>
+    <div class="evento-card" data-reveal data-delay="3">
+      <div class="evento-icon">🍽</div>
+      <div>
+        <div class="evento-title">Menu del Giorno</div>
+        <p class="evento-desc">Ogni giorno una proposta diversa con i migliori ingredienti di stagione. Pranzo e cena sempre freschi e genuini.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ GALLERIA ══════════════════════════════════════════════════ -->
+<div id="galleria">
+  <div class="gallery-mosaic">
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80" alt="Piatto del giorno" />
+      <div class="gal-overlay"></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1559304822-9eb2813c9e3c?w=600&q=80" alt="Frutti di mare" />
+      <div class="gal-overlay"></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=600&q=80" alt="Carne alla griglia" />
+      <div class="gal-overlay"></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Sala del ristorante" />
+      <div class="gal-overlay"></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80" alt="Dolci" />
+      <div class="gal-overlay"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ PRENOTA ═══════════════════════════════════════════════════ -->
+<section id="prenota">
+  <div class="prenota-text" data-reveal>
+    <div class="sec-label" style="color: rgba(255,255,255,.7);">Riservate il Vostro Tavolo</div>
+    <h2 class="prenota-title" style="margin-bottom:2rem;">Venite a trovarci<br>a Melzo</h2>
+    <p class="prenota-sub" style="margin-bottom:3rem; font-size: 1rem;">Per gruppi, cerimonie o una semplice serata — siamo qui per voi. Compilate il modulo per richiedere la prenotazione, vi confermeremo la disponibilità al più presto.</p>
+    <div class="contact-info" style="color:var(--white); margin-top:0;">
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(255,255,255,.2); color:white; font-size:1.2rem;">📍</div>
+        <div>
+          <span class="contact-lbl" style="color:var(--yellow);">Indirizzo</span>
+          <span class="contact-val" style="color:white;">Via P. Togliatti, 2 · Melzo</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(255,255,255,.2); color:white; font-size:1.2rem;">📞</div>
+        <div>
+          <span class="contact-lbl" style="color:var(--yellow);">Telefono</span>
+          <span class="contact-val" style="color:white;"><a href="tel:0295722603">02 9572 2603</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="prenota-form-wrapper" data-reveal data-delay="1">
+    <form class="prenota-form" id="bookingForm" onsubmit="event.preventDefault(); document.getElementById('formSuccess').style.display='block'; this.reset();">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nome e Cognome *</label>
+          <input type="text" class="form-control" required placeholder="Mario Rossi">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefono *</label>
+          <input type="tel" class="form-control" required placeholder="333 1234567">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Data *</label>
+          <input type="date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ora *</label>
+          <input type="time" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Persone *</label>
+        <select class="form-control" required>
+          <option value="" disabled selected>Seleziona numero</option>
+          <option value="1">1 Persona</option>
+          <option value="2">2 Persone</option>
+          <option value="3">3 Persone</option>
+          <option value="4">4 Persone</option>
+          <option value="5">5 Persone</option>
+          <option value="6">6 Persone</option>
+          <option value="7">7+ Persone (Specifica nelle note)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Note / Richieste</label>
+        <textarea class="form-control" rows="3" placeholder="Seggiolone, intolleranze..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary form-submit">Invia Richiesta</button>
+      <div id="formSuccess" class="form-message success">
+        Grazie! Abbiamo ricevuto la tua richiesta. Ti contatteremo a breve.
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- ═══ CONTATTI & ORARI ══════════════════════════════════════════ -->
+<section id="contatti">
+  <div class="contatti-left">
+    <div class="sec-label">Dove Siamo · Quando Aprire</div>
+    <h2 class="sec-title">Orari &amp;<br>Contatti</h2>
+    <div class="sec-line" style="background:var(--yellow);"></div>
+
+    <div class="orari-table">
+      <div class="orario-row">
+        <span class="orario-giorno">Lunedì</span>
+        <span class="orario-ora orario-chiuso">Chiuso</span>
+      </div>
+      <div class="orario-row">
+        <span class="orario-giorno">Martedì – Venerdì</span>
+        <span class="orario-ora">12:00 – 14:30 &nbsp;|&nbsp; 19:00 – 23:00</span>
+      </div>
+      <div class="orario-row">
+        <span class="orario-giorno">Sabato</span>
+        <span class="orario-ora">12:00 – 15:00 &nbsp;|&nbsp; 19:00 – 24:00</span>
+      </div>
+      <div class="orario-row">
+        <span class="orario-giorno">Domenica</span>
+        <span class="orario-ora">12:00 – 15:30 &nbsp;|&nbsp; 19:00 – 23:00</span>
+      </div>
+    </div>
+
+    <div class="contact-info" style="margin-top:3rem;">
+      <div class="contact-row">
+        <div class="contact-icon">📍</div>
+        <div>
+          <span class="contact-lbl">Indirizzo</span>
+          <span class="contact-val">Via Palmiro Togliatti, 2 · 20066 Melzo (MI)</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📞</div>
+        <div>
+          <span class="contact-lbl">Telefono</span>
+          <span class="contact-val"><a href="tel:0295722603">02 9572 2603</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-row">
+      <a href="https://www.instagram.com/mari_e_monti_melzo" target="_blank" class="social-btn">Instagram</a>
+      <a href="https://www.facebook.com" target="_blank" class="social-btn">Facebook</a>
+      <a href="https://www.tiktok.com" target="_blank" class="social-btn">TikTok</a>
+    </div>
+  </div>
+
+  <div class="contatti-map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.0!2d9.4189!3d45.4969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786ca5cb277482b%3A0x3f1302343d6a00ba!2sRistorante%20Pizzeria%20Mari%20%26%20Monti!5e0!3m2!1sit!2sit!4v1"
+      allowfullscreen=""
+      loading="lazy"
+      title="Mappa Mari e Monti Melzo"
+    ></iframe>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════ -->
+<footer>
+  <span class="footer-brand">Mari &amp; Monti · Melzo</span>
+  <p>Via Palmiro Togliatti, 2 · 20066 Melzo (MI) · <a href="tel:0295722603">02 9572 2603</a></p>
+  <p>© 2025 Ristorante Pizzeria Mari &amp; Monti. Tutti i diritti riservati.</p>
+</footer>
+
+
+<script>
+  /* Scroll reveal */
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } }),
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+  /* Nav shrink on scroll */
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '.7rem 4rem' : '1.2rem 4rem';
+  });
+
+  /* Menu tabs */
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

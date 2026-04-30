@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashi 大市 — Pasticceria Artigianale Cinese · Milano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+SC:wght@300;400&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream:    #F4EBD9;
+    --ink:      #2C241B;
+    --red:      #A22C27;
+    --green:    #849C5E;
+    --cream-2:  #EDE0C8;
+    --cream-3:  #FAF5EC;
+    --red-light:#C9453F;
+    --green-light:#A3BB7A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: .45;
+  }
+
+  /* ─── DECORATIVE WATERMARK CIRCLES ─── */
+  .bg-circle {
+    position: fixed;
+    border-radius: 50%;
+    opacity: .04;
+    pointer-events: none;
+    background: var(--ink);
+  }
+  .bg-circle-1 { width: 600px; height: 600px; top: -200px; right: -150px; }
+  .bg-circle-2 { width: 400px; height: 400px; bottom: 5%; left: -100px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(244, 235, 217, .88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(44,36,27,.1);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: .78rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: .7;
+    transition: opacity .2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-phone {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: .9rem;
+    color: var(--red);
+    letter-spacing: .04em;
+    text-decoration: none;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 72px;
+    position: relative;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 5rem 6rem;
+    position: relative;
+  }
+
+  .seal {
+    width: 88px;
+    height: 88px;
+    border: 2.5px solid var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    animation: seal-spin 30s linear infinite;
+  }
+  .seal-inner {
+    font-family: 'Noto Serif SC', serif;
+    font-size: .75rem;
+    color: var(--red);
+    letter-spacing: .12em;
+    text-align: center;
+    line-height: 1.3;
+  }
+  @keyframes seal-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .hero-eyebrow {
+    font-size: .7rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: .8rem;
+    opacity: 0;
+    animation: fadeUp .8s .2s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp .9s .35s ease forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .hero-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: .3em;
+    color: var(--ink);
+    opacity: .35;
+    margin-top: .6rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp .9s .5s ease forwards;
+  }
+
+  .hero-desc {
+    font-size: .9rem;
+    line-height: 1.8;
+    color: var(--ink);
+    opacity: .65;
+    max-width: 380px;
+    margin-bottom: 3rem;
+    animation: fadeUp .9s .65s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp .9s .8s ease forwards;
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .75rem 2rem;
+    border: 1.5px solid var(--ink);
+    font-size: .78rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: background .25s, color .25s;
+    cursor: pointer;
+    background: transparent;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+  .btn-red {
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .btn-red:hover { background: var(--red); color: var(--cream); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream-2);
+  }
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(244,235,217,.3) 0%, transparent 60%);
+  }
+
+  /* SVG illustration replacing photo */
+  .hero-illustration {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 3rem;
+  }
+
+  .floating-badge {
+    position: absolute;
+    bottom: 2.5rem;
+    left: -2rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1.2rem 1.8rem;
+    z-index: 2;
+    animation: fadeUp 1s 1s ease both;
+  }
+  .floating-badge p:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .floating-badge p:last-child {
+    font-size: .7rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-top: .3rem;
+  }
+
+  /* ─── SECTION UTILITY ─── */
+  section { padding: 7rem 6rem; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: .7rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.5rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--green);
+    opacity: .4;
+    max-width: 60px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--red); }
+
+  /* ─── ORARI ─── */
+  .orari-section {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 5rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .orari-section::before {
+    content: '大市';
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18rem;
+    opacity: .04;
+    line-height: 1;
+    color: var(--cream);
+  }
+  .orari-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    max-width: 900px;
+  }
+  .orari-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+  .orari-subtitle {
+    font-size: .8rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 2rem;
+  }
+  .orari-note {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: .95rem;
+    opacity: .55;
+    line-height: 1.7;
+  }
+  .orari-rows { display: flex; flex-direction: column; gap: 1rem; }
+  .orari-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(244,235,217,.1);
+    gap: 2rem;
+  }
+  .orari-row:last-child { border-bottom: none; }
+  .orari-giorni {
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .6;
+    min-width: 140px;
+  }
+  .orari-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: .05em;
+  }
+  .orari-closed {
+    font-style: italic;
+    font-family: 'Lora', serif;
+    color: var(--red-light);
+    font-size: 1rem;
+  }
+  .orari-tag {
+    font-size: .65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    background: rgba(244,235,217,.1);
+    padding: .25rem .7rem;
+    border-radius: 999px;
+    opacity: .7;
+  }
+
+  /* ─── PRODOTTI ─── */
+  .prodotti-section { background: var(--cream-3); }
+  .prodotti-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+  .prodotto-card {
+    background: var(--cream);
+    border: 1px solid rgba(44,36,27,.08);
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: transform .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .prodotto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(44,36,27,.1);
+  }
+  .prodotto-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .prodotto-name {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: .5rem;
+    color: var(--ink);
+  }
+  .prodotto-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: .8rem;
+    color: var(--red);
+    letter-spacing: .15em;
+    margin-bottom: .8rem;
+    display: block;
+  }
+  .prodotto-desc {
+    font-size: .82rem;
+    line-height: 1.75;
+    opacity: .65;
+    color: var(--ink);
+  }
+  .prodotto-card-accent {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* ─── HERO MIDDLE BANNER ─── */
+  .banner-section {
+    background: var(--red);
+    padding: 4rem 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .banner-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.2;
+    max-width: 600px;
+  }
+  .banner-text em { font-style: italic; }
+  .banner-sub {
+    font-size: .78rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(244,235,217,.6);
+    margin-top: .5rem;
+  }
+  .banner-flags {
+    font-size: 3rem;
+    letter-spacing: .3rem;
+    opacity: .5;
+  }
+
+  /* ─── VALORI ─── */
+  .valori-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .valori-left {
+    padding: 7rem 5rem 7rem 6rem;
+    background: var(--cream);
+  }
+  .valori-right {
+    background: var(--cream-2);
+    padding: 7rem 6rem 7rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .valore-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+  }
+  .valore-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--red);
+    line-height: 1;
+    min-width: 2rem;
+  }
+  .valore-content h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    margin-bottom: .4rem;
+    font-weight: 400;
+  }
+  .valore-content p {
+    font-size: .83rem;
+    line-height: 1.75;
+    opacity: .6;
+  }
+
+  /* SVG decorative pastry illustration */
+  .pastry-svg-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  /* ─── CONTATTI ─── */
+  .contatti-section {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .contatti-left .section-label { color: var(--green-light); }
+  .contatti-left .section-label::after { background: var(--green-light); }
+  .contatti-left .section-title { color: var(--cream); }
+  .contatti-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-top: 2.5rem;
+  }
+  .info-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .info-icon {
+    font-size: 1.3rem;
+    min-width: 2rem;
+    margin-top: .1rem;
+  }
+  .info-content p:first-child {
+    font-size: .68rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .45;
+    margin-bottom: .3rem;
+  }
+  .info-content p:last-child {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .info-content a {
+    color: var(--cream);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .info-content a:hover { color: var(--red-light); }
+
+  /* Map placeholder */
+  .map-placeholder {
+    background: rgba(244,235,217,.06);
+    border: 1px solid rgba(244,235,217,.12);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 2rem;
+  }
+  .map-placeholder .map-pin { font-size: 3rem; }
+  .map-placeholder p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    opacity: .5;
+    line-height: 1.6;
+  }
+  .map-placeholder a {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin-top: .5rem;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    text-decoration: none;
+    border: 1px solid var(--green-light);
+    padding: .55rem 1.2rem;
+    transition: background .2s, color .2s;
+  }
+  .map-placeholder a:hover {
+    background: var(--green-light);
+    color: var(--ink);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(244,235,217,.08);
+    padding: 2.5rem 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: .04em;
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-copy {
+    font-size: .72rem;
+    letter-spacing: .1em;
+    color: rgba(244,235,217,.35);
+  }
+  .footer-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    color: rgba(244,235,217,.2);
+    letter-spacing: .3em;
+  }
+
+  /* ─── SCROLL ANIMATION ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 3rem 2rem; }
+    .hero-right { min-height: 40vh; }
+    .floating-badge { left: 1rem; bottom: 1rem; }
+    section { padding: 4rem 2rem; }
+    .orari-section { padding: 4rem 2rem; }
+    .orari-grid { grid-template-columns: 1fr; }
+    .prodotti-grid { grid-template-columns: 1fr; }
+    .banner-section { padding: 3rem 2rem; }
+    .valori-section { grid-template-columns: 1fr; }
+    .valori-left, .valori-right { padding: 4rem 2rem; }
+    .contatti-section { grid-template-columns: 1fr; padding: 4rem 2rem; }
+    footer { padding: 2rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="bg-circle bg-circle-1"></div>
+<div class="bg-circle bg-circle-2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">大市 <span>Dashi</span></a>
+  <ul class="nav-links">
+    <li><a href="#prodotti">Specialità</a></li>
+    <li><a href="#orari">Orari</a></li>
+    <li><a href="#contatti">Dove Siamo</a></li>
+  </ul>
+  <a href="tel:+393349252543" class="nav-phone">☎ +334 925 2543</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="seal">
+      <div class="seal-inner">大<br>市</div>
+    </div>
+    <p class="hero-eyebrow">Pasticceria Tradizionale Cinese · Milano</p>
+    <h1 class="hero-title">
+      Dashi<br>
+      <em>Pasticceria</em><br>
+      Artigianale
+    </h1>
+    <p class="hero-hanzi">大市 甜品坊</p>
+    <p class="hero-desc">
+      Dolci della tradizione cinese, preparati ogni giorno a mano con ingredienti selezionati. 
+      Dal mochi al red bean bao, dalla pastella croccante ai mooncake stagionali — 
+      un viaggio autentico tra i sapori dell'oriente.
+    </p>
+    <div class="hero-btns">
+      <a href="#prodotti" class="btn-outline">Scopri le Specialità</a>
+      <a href="#contatti" class="btn-outline btn-red">📍 Via Porpora 14</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-illustration">
+      <!-- SVG Pastry Illustration -->
+      <svg viewBox="0 0 480 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;opacity:.92;">
+        <!-- Bamboo tray -->
+        <ellipse cx="240" cy="430" rx="190" ry="28" fill="#2C241B" opacity=".12"/>
+        <rect x="60" y="390" width="360" height="32" rx="6" fill="#5C4033" opacity=".25"/>
+        <!-- Main mooncake -->
+        <ellipse cx="240" cy="290" rx="115" ry="105" fill="#EDE0C8"/>
+        <ellipse cx="240" cy="290" rx="115" ry="105" fill="none" stroke="#2C241B" stroke-width="1.5" opacity=".15"/>
+        <!-- Mooncake pattern top -->
+        <ellipse cx="240" cy="270" rx="78" ry="70" fill="none" stroke="#A22C27" stroke-width="1" opacity=".4"/>
+        <ellipse cx="240" cy="270" rx="58" ry="52" fill="none" stroke="#A22C27" stroke-width=".8" opacity=".25"/>
+        <!-- Chinese character on mooncake -->
+        <text x="240" y="285" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="32" fill="#A22C27" opacity=".6" font-weight="300">福</text>
+        <!-- Small mochi balls -->
+        <circle cx="100" cy="370" r="32" fill="#F4EBD9"/>
+        <circle cx="100" cy="370" r="32" fill="none" stroke="#2C241B" stroke-width="1" opacity=".1"/>
+        <circle cx="100" cy="365" r="22" fill="#849C5E" opacity=".25"/>
+        <text x="100" y="372" text-anchor="middle" font-size="10" font-family="serif" fill="#2C241B" opacity=".5">抹茶</text>
+
+        <circle cx="370" cy="370" r="28" fill="#F4EBD9"/>
+        <circle cx="370" cy="370" r="28" fill="none" stroke="#2C241B" stroke-width="1" opacity=".1"/>
+        <circle cx="370" cy="366" r="19" fill="#A22C27" opacity=".2"/>
+        <text x="370" y="372" text-anchor="middle" font-size="10" font-family="serif" fill="#2C241B" opacity=".5">豆沙</text>
+
+        <!-- Small buns -->
+        <ellipse cx="155" cy="390" rx="36" ry="28" fill="#F4EBD9"/>
+        <ellipse cx="155" cy="384" rx="28" ry="22" fill="#EDE0C8"/>
+        <ellipse cx="310" cy="390" rx="36" ry="28" fill="#F4EBD9"/>
+        <ellipse cx="310" cy="384" rx="28" ry="22" fill="#EDE0C8"/>
+
+        <!-- Decorative flowers -->
+        <g transform="translate(80, 140) rotate(-15)" opacity=".5">
+          <circle cx="0" cy="-14" r="7" fill="#849C5E"/>
+          <circle cx="13" cy="-7" r="7" fill="#849C5E"/>
+          <circle cx="13" cy="7" r="7" fill="#849C5E"/>
+          <circle cx="0" cy="14" r="7" fill="#849C5E"/>
+          <circle cx="-13" cy="7" r="7" fill="#849C5E"/>
+          <circle cx="-13" cy="-7" r="7" fill="#849C5E"/>
+          <circle cx="0" cy="0" r="6" fill="#A3BB7A"/>
+        </g>
+        <g transform="translate(390, 160) rotate(20)" opacity=".4">
+          <circle cx="0" cy="-12" r="6" fill="#A22C27"/>
+          <circle cx="11" cy="-6" r="6" fill="#A22C27"/>
+          <circle cx="11" cy="6" r="6" fill="#A22C27"/>
+          <circle cx="0" cy="12" r="6" fill="#A22C27"/>
+          <circle cx="-11" cy="6" r="6" fill="#A22C27"/>
+          <circle cx="-11" cy="-6" r="6" fill="#A22C27"/>
+          <circle cx="0" cy="0" r="5" fill="#C9453F"/>
+        </g>
+
+        <!-- Teapot silhouette -->
+        <g transform="translate(185, 80)" opacity=".55">
+          <ellipse cx="55" cy="70" rx="48" ry="40" fill="#2C241B" opacity=".12"/>
+          <ellipse cx="55" cy="65" rx="42" ry="36" fill="#EDE0C8" stroke="#2C241B" stroke-width="1.5" opacity="1"/>
+          <!-- spout -->
+          <path d="M 10 55 Q -10 50 -15 38" stroke="#2C241B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- handle -->
+          <path d="M 96 45 Q 115 45 115 65 Q 115 85 96 80" stroke="#2C241B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- lid -->
+          <ellipse cx="55" cy="28" rx="30" ry="8" fill="#EDE0C8" stroke="#2C241B" stroke-width="1.2"/>
+          <circle cx="55" cy="22" r="5" fill="#A22C27"/>
+          <!-- decoration line -->
+          <ellipse cx="55" cy="58" rx="28" ry="4" fill="none" stroke="#A22C27" stroke-width=".8" opacity=".5"/>
+        </g>
+
+        <!-- Watercolor wash bg circle -->
+        <circle cx="240" cy="260" r="170" fill="none" stroke="#849C5E" stroke-width=".5" opacity=".2" stroke-dasharray="4 8"/>
+      </svg>
+    </div>
+
+    <div class="floating-badge">
+      <p>🍞 Colazione</p>
+      <p>& Merenda · ogni giorno</p>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner-section">
+  <div>
+    <p class="banner-text">Senza prenotazione.<br><em>Vieni quando vuoi.</em></p>
+    <p class="banner-sub">⚠️ No prenotazione · Ingresso libero · Asporto disponibile</p>
+  </div>
+  <div class="banner-flags">🇨🇳 🇮🇹</div>
+</div>
+
+<!-- ORARI -->
+<div class="orari-section" id="orari">
+  <div class="orari-grid">
+    <div>
+      <h2 class="orari-title reveal">Siamo<br>Aperti</h2>
+      <p class="orari-subtitle reveal">Orari di apertura</p>
+      <p class="orari-note reveal">
+        Ogni dolce è preparato fresco ogni mattina. 
+        Ti aspettiamo per la colazione e la merenda — 
+        nei fine settimana restiamo aperti più a lungo.
+      </p>
+    </div>
+    <div class="orari-rows reveal">
+      <div class="orari-row">
+        <span class="orari-giorni">Martedì — Giovedì</span>
+        <span class="orari-time">10:00 — 19:30</span>
+        <span class="orari-tag">☕</span>
+      </div>
+      <div class="orari-row">
+        <span class="orari-giorni">Venerdì — Domenica</span>
+        <span class="orari-time">10:00 — 21:00</span>
+        <span class="orari-tag">🌙</span>
+      </div>
+      <div class="orari-row">
+        <span class="orari-giorni">Lunedì</span>
+        <span class="orari-closed">Chiuso</span>
+        <span class="orari-tag">🌿</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODOTTI -->
+<section class="prodotti-section" id="prodotti" style="padding: 6rem;">
+  <div class="section-label reveal">Le Nostre Specialità</div>
+  <h2 class="section-title reveal">
+    Dolci della<br><em>tradizione</em>
+  </h2>
+  <p class="reveal" style="max-width:520px;font-size:.9rem;line-height:1.9;opacity:.65;margin-bottom:0;">
+    Ogni preparazione rispetta le ricette tramandate, con ingredienti importati e tecniche artigianali 
+    che rendono ogni morso un'esperienza autentica.
+  </p>
+
+  <div class="prodotti-grid">
+    <div class="prodotto-card reveal">
+      <div class="prodotto-card-accent"></div>
+      <span class="prodotto-icon">🍡</span>
+      <h3 class="prodotto-name">Mochi Artigianali</h3>
+      <span class="prodotto-hanzi">大福</span>
+      <p class="prodotto-desc">
+        Sfere di riso glutinoso dalla consistenza morbidissima, ripiene di pasta di fagioli rossi, matcha, 
+        fragola o taro. Preparati ogni mattina, disponibili fino ad esaurimento.
+      </p>
+    </div>
+    <div class="prodotto-card reveal" style="transition-delay:.1s">
+      <div class="prodotto-card-accent" style="background:var(--red);"></div>
+      <span class="prodotto-icon">🥮</span>
+      <h3 class="prodotto-name">Mooncake Stagionali</h3>
+      <span class="prodotto-hanzi">月饼</span>
+      <p class="prodotto-desc">
+        Pasticcini a pasta frolla con ripieni tradizionali: pasta di loto, tuorlo d'uovo salato, 
+        noci. Decorati a mano con stampi in legno della tradizione.
+      </p>
+    </div>
+    <div class="prodotto-card reveal" style="transition-delay:.2s">
+      <div class="prodotto-card-accent" style="background:var(--green);"></div>
+      <span class="prodotto-icon">🥟</span>
+      <h3 class="prodotto-name">Bao Dolci al Vapore</h3>
+      <span class="prodotto-hanzi">包子</span>
+      <p class="prodotto-desc">
+        Panini soffici cotti al vapore, ripieni di crema di fagioli, pasta di sesamo o 
+        crema alla vaniglia. La colazione perfetta.
+      </p>
+    </div>
+    <div class="prodotto-card reveal" style="transition-delay:.3s">
+      <div class="prodotto-card-accent" style="background:var(--red);"></div>
+      <span class="prodotto-icon">🍵</span>
+      <h3 class="prodotto-name">Torte al Matcha</h3>
+      <span class="prodotto-hanzi">抹茶蛋糕</span>
+      <p class="prodotto-desc">
+        Layer cake delicate con polvere di matcha cerimonia grade giapponese, panna fresca e 
+        strati di gelatina di azuki. Eleganti e profumate.
+      </p>
+    </div>
+    <div class="prodotto-card reveal" style="transition-delay:.4s">
+      <div class="prodotto-card-accent"></div>
+      <span class="prodotto-icon">🧁</span>
+      <h3 class="prodotto-name">Dan Huang Su</h3>
+      <span class="prodotto-hanzi">蛋黄酥</span>
+      <p class="prodotto-desc">
+        Il pasticcino a sfoglia più amato: strati croccanti di pasta sfogliata cinese 
+        intorno a tuorlo d'uovo salato e pasta di fagioli rossi. Irresistibile.
+      </p>
+    </div>
+    <div class="prodotto-card reveal" style="transition-delay:.5s">
+      <div class="prodotto-card-accent" style="background:var(--green);"></div>
+      <span class="prodotto-icon">🍬</span>
+      <h3 class="prodotto-name">Tang Yuan & Dessert</h3>
+      <span class="prodotto-hanzi">汤圆</span>
+      <p class="prodotto-desc">
+        Palline di farina di riso in brodo dolce, farcite con sesamo nero o pasta di arachidi. 
+        Calde in inverno, accompagnate da tè aromatico in estate.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VALORI -->
+<section class="valori-section" style="padding:0;">
+  <div class="valori-left">
+    <div class="section-label reveal">La Nostra Storia</div>
+    <h2 class="section-title reveal">
+      Tradizione<br><em>e cura</em><br>in ogni dolce
+    </h2>
+    <p class="reveal" style="font-size:.88rem;line-height:1.9;opacity:.6;max-width:380px;margin-top:.5rem;">
+      Dashi nasce dall'amore per la pasticceria tradizionale cinese e dal desiderio di 
+      portare a Milano sapori autentici, lavorati con rispetto e pazienza.
+    </p>
+  </div>
+  <div class="valori-right">
+    <div class="valore-item reveal">
+      <span class="valore-num">一</span>
+      <div class="valore-content">
+        <h3>Ingredienti Selezionati</h3>
+        <p>Farina di riso glutinoso, pasta di fagioli azuki, matcha cerimonia, tuorli d'uovo salati — ogni ingrediente è scelto con cura.</p>
+      </div>
+    </div>
+    <div class="valore-item reveal" style="transition-delay:.1s">
+      <span class="valore-num">二</span>
+      <div class="valore-content">
+        <h3>Preparazione Artigianale</h3>
+        <p>Nessuna produzione industriale. Ogni dolce è plasmato, riempito e decorato a mano ogni mattina.</p>
+      </div>
+    </div>
+    <div class="valore-item reveal" style="transition-delay:.2s">
+      <span class="valore-num">三</span>
+      <div class="valore-content">
+        <h3>Ricette della Tradizione</h3>
+        <p>Seguiamo i metodi trasmessi di generazione in generazione, con la fedeltà al sapore originale come priorità assoluta.</p>
+      </div>
+    </div>
+    <div class="valore-item reveal" style="transition-delay:.3s">
+      <span class="valore-num">四</span>
+      <div class="valore-content">
+        <h3>Nessuna Prenotazione</h3>
+        <p>Vieni quando ti va. La nostra porta è sempre aperta — finché durano i dolci del giorno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section class="contatti-section" id="contatti" style="padding: 6rem;">
+  <div class="contatti-left">
+    <div class="section-label">Trovaci a Milano</div>
+    <h2 class="section-title reveal" style="color:var(--cream);">
+      Vieni a<br><em>trovarci</em>
+    </h2>
+    <div class="contatti-info">
+      <div class="info-item reveal">
+        <span class="info-icon">📍</span>
+        <div class="info-content">
+          <p>Indirizzo</p>
+          <p>Via Porpora 14<br>20131 Milano, Italia</p>
+        </div>
+      </div>
+      <div class="info-item reveal" style="transition-delay:.1s">
+        <span class="info-icon">☎️</span>
+        <div class="info-content">
+          <p>Telefono</p>
+          <p><a href="tel:+393349252543">+334 925 2543</a></p>
+        </div>
+      </div>
+      <div class="info-item reveal" style="transition-delay:.2s">
+        <span class="info-icon">🕙</span>
+        <div class="info-content">
+          <p>Orari</p>
+          <p>
+            Mar–Gio: 10:00 – 19:30<br>
+            Ven–Dom: 10:00 – 21:00<br>
+            Lunedì: Chiuso
+          </p>
+        </div>
+      </div>
+      <div class="info-item reveal" style="transition-delay:.3s">
+        <span class="info-icon">🚇</span>
+        <div class="info-content">
+          <p>Come Arrivare</p>
+          <p>Metro MM2 – Lambrate o Cimiano<br>Tram 5 · 23</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map-placeholder reveal">
+    <div class="map-pin">🗺️</div>
+    <p>Via Porpora 14<br>Milano 20131</p>
+    <p style="font-family:'Noto Serif SC';font-size:.9rem;opacity:.3;letter-spacing:.2em;margin-top:.3rem;">上海路 · 米兰</p>
+    <a href="https://maps.google.com/?q=Via+Porpora+14+Milano" target="_blank" rel="noopener">
+      → Apri in Google Maps
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">大市 <span>Dashi</span></div>
+  <p class="footer-copy">© 2025 Dashi Pasticceria Artigianale · Via Porpora 14, Milano · P.IVA in elaborazione</p>
+  <div class="footer-hanzi">大市甜品坊</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger children in grids
+  document.querySelectorAll('.prodotti-grid .prodotto-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>

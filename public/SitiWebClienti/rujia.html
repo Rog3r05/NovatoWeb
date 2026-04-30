@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rujia 儒家 — Autentica Cucina Cinese a Milano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #A6192E;
+    --red-dark: #7d1220;
+    --red-bright: #c4192e;
+    --black: #1A1A1A;
+    --white: #F9F9F9;
+    --gold: #C99A4E;
+    --gold-light: #e0b96a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(26,26,26,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(166,25,46,0.3);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .nav-logo .cn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo .en {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(249,249,249,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--red);
+    color: var(--white) !important;
+    padding: 0.5rem 1.4rem;
+    font-family: 'Oswald', sans-serif !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.12em !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 5rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(166,25,46,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,154,78,0.08) 0%, transparent 60%),
+      var(--black);
+  }
+
+  /* Big Chinese character watermark */
+  .hero-watermark {
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(18rem, 32vw, 42rem);
+    font-weight: 900;
+    color: rgba(166,25,46,0.07);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 3rem;
+    max-width: 750px;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-eyebrow span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .eyebrow-line {
+    width: 50px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s forwards;
+  }
+
+  .hero-title .red { color: var(--red); }
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-cn-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(249,249,249,0.75);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.2rem;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--red-bright);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid rgba(249,249,249,0.3);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* ─── HERO IMAGE GRID (right side) ─── */
+  .hero-image-cluster {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.6rem;
+    z-index: 3;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.6s forwards;
+  }
+
+  .hero-img {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(166,25,46,0.15), transparent);
+    pointer-events: none;
+  }
+
+  .hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.05) saturate(1.1);
+    transition: transform 0.6s ease;
+  }
+
+  .hero-img:hover img { transform: scale(1.04); }
+
+  .hero-img:nth-child(1) { grid-row: 1; grid-column: 1; height: 230px; }
+  .hero-img:nth-child(2) { grid-row: 1 / 3; grid-column: 2; height: 380px; }
+  .hero-img:nth-child(3) { grid-row: 2; grid-column: 1; height: 144px; }
+
+  .img-tag {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.6rem;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    z-index: 2;
+  }
+
+  /* ─── BADGE / SCROLLING TICKER ─── */
+  .ticker-wrap {
+    background: var(--red);
+    overflow: hidden;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--red-dark);
+    border-bottom: 1px solid var(--red-dark);
+  }
+
+  .ticker-track {
+    display: flex;
+    animation: ticker 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-item {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .ticker-item::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 0.65rem;
+  }
+
+  /* ─── PHILOSOPHY SECTION ─── */
+  .philosophy {
+    padding: 7rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .philosophy-text .section-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .philosophy-text .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .philosophy-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .philosophy-text h2 em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .philosophy-text p {
+    color: rgba(249,249,249,0.72);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .philosophy-cn-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    line-height: 1.4;
+    border-left: 3px solid var(--red);
+    padding-left: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .philosophy-cn-quote small {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: rgba(201,154,78,0.7);
+    margin-top: 0.5rem;
+  }
+
+  .philosophy-visual {
+    position: relative;
+  }
+
+  .philosophy-img-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(1.08);
+    display: block;
+  }
+
+  .philosophy-img-overlay {
+    position: absolute;
+    bottom: -2rem;
+    left: -2.5rem;
+    width: 55%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 4px solid var(--black);
+    filter: contrast(1.08) saturate(1.1);
+  }
+
+  .philosophy-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: -1.5rem;
+    width: 90px;
+    height: 90px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .philosophy-badge .num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .philosophy-badge .label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(249,249,249,0.8);
+    line-height: 1.3;
+  }
+
+  /* ─── MENU SECTION ─── */
+  .menu-section {
+    background: #111111;
+    padding: 7rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .menu-section::before {
+    content: '菜';
+    position: absolute;
+    left: -3%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(15rem, 25vw, 32rem);
+    font-weight: 900;
+    color: rgba(166,25,46,0.05);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-header .label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .menu-card {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: pointer;
+    group: true;
+  }
+
+  .menu-card:hover {
+    border-color: rgba(166,25,46,0.5);
+    transform: translateY(-4px);
+  }
+
+  .menu-card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.05) saturate(1.1);
+    transition: transform 0.5s ease;
+  }
+
+  .menu-card:hover .menu-card-img { transform: scale(1.05); }
+
+  .menu-card-tag {
+    position: absolute;
+    top: 0.8rem;
+    left: 0;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+  }
+
+  .menu-card-body {
+    padding: 1.2rem 1.4rem 1.6rem;
+  }
+
+  .menu-card-cn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.3rem;
+  }
+
+  .menu-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .menu-card p {
+    font-size: 0.82rem;
+    color: rgba(249,249,249,0.6);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .menu-card-price {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .menu-card-price small {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(201,154,78,0.6);
+    font-weight: 400;
+    margin-left: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── PERCHE' SECTION (WHY RUJIA) ─── */
+  .why-section {
+    padding: 7rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .why-card {
+    border-top: 2px solid var(--red);
+    padding-top: 2rem;
+  }
+
+  .why-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .why-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    color: var(--white);
+  }
+
+  .why-card p {
+    font-size: 0.9rem;
+    color: rgba(249,249,249,0.6);
+    line-height: 1.75;
+  }
+
+  /* ─── GALLERY BENTO ─── */
+  .gallery-section {
+    padding: 0 3rem 7rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 240px 240px;
+    gap: 0.6rem;
+  }
+
+  .bento-item {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bento-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,26,26,0.4), transparent 40%);
+    transition: opacity 0.3s;
+  }
+
+  .bento-item:hover::after { opacity: 0.2; }
+
+  .bento-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05) contrast(1.02);
+    transition: transform 0.5s ease;
+  }
+
+  .bento-item:hover img { transform: scale(1.06); }
+
+  .bento-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+  .bento-item:nth-child(2) { grid-column: 3; grid-row: 1; }
+  .bento-item:nth-child(3) { grid-column: 4; grid-row: 1 / 3; }
+  .bento-item:nth-child(4) { grid-column: 1; grid-row: 2; }
+  .bento-item:nth-child(5) { grid-column: 2 / 4; grid-row: 2; }
+
+  /* ─── INFO / CTA SECTION ─── */
+  .cta-section {
+    background: var(--red);
+    padding: 6rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '家';
+    position: absolute;
+    right: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(15rem, 22vw, 28rem);
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .cta-text { position: relative; z-index: 2; }
+
+  .cta-text .label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(249,249,249,0.7);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .cta-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-text p {
+    color: rgba(249,249,249,0.8);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-text .btn-white {
+    background: var(--white);
+    color: var(--red);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.2rem;
+    display: inline-block;
+    transition: transform 0.2s, background 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cta-text .btn-white:hover {
+    background: var(--black);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .info-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    padding: 1.4rem 1.6rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .info-card-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .info-card-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(249,249,249,0.6);
+    margin-bottom: 0.3rem;
+  }
+
+  .info-card-value {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    line-height: 1.4;
+  }
+
+  .info-card-value a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .info-card-value a:hover { text-decoration: underline; }
+
+  /* ─── MAP EMBED ─── */
+  .map-section {
+    position: relative;
+    height: 360px;
+    overflow: hidden;
+    border-top: 3px solid var(--red);
+  }
+
+  .map-section iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.7) contrast(1.1) saturate(0.8);
+    display: block;
+  }
+
+  .map-overlay-label {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #0f0f0f;
+    border-top: 1px solid rgba(166,25,46,0.25);
+    padding: 3.5rem 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .footer-brand .cn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .footer-brand .en {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(249,249,249,0.5);
+    display: block;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.82rem;
+    color: rgba(249,249,249,0.45);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  footer h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  footer ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  footer ul li {
+    font-size: 0.88rem;
+    color: rgba(249,249,249,0.55);
+    line-height: 1.5;
+  }
+
+  footer ul li a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  footer ul li a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 0.75rem;
+    color: rgba(249,249,249,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-bottom .hearts { color: var(--red); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .hero-image-cluster { display: none; }
+    .hero-content { max-width: 100%; padding: 2rem; }
+    .philosophy { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+    .philosophy-img-overlay { display: none; }
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 220px);
+    }
+    .bento-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+    .bento-item:nth-child(2) { grid-column: 1; grid-row: 2; }
+    .bento-item:nth-child(3) { grid-column: 2; grid-row: 2 / 4; }
+    .bento-item:nth-child(4) { grid-column: 1; grid-row: 3; }
+    .bento-item:nth-child(5) { grid-column: 1 / 3; grid-row: 4; height: 220px; }
+    .cta-section { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .hero-content { padding: 1.5rem; }
+    .philosophy, .why-section, .gallery-section, .menu-section, .cta-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav>
+  <div class="nav-logo">
+    <span class="cn">儒家</span>
+    <span class="en">Rujia</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#filosofia">Chi Siamo</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#galleria">Galleria</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+    <li><a href="tel:+390249370980" class="nav-cta">Chiama Ora</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">儒</div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>Cucina Cinese Autentica · Milano</span>
+      <div class="eyebrow-line"></div>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="red">Rujia</span><br>
+      <span>Restaurant</span>
+    </h1>
+
+    <div class="hero-cn-title">儒家</div>
+
+    <p class="hero-desc">
+      «Gentile come la cultura confuciana» — un vero sapore cinese,<br>
+      come a casa tua in Cina. Benvenuto a Milano.
+    </p>
+
+    <div class="hero-actions">
+      <a href="https://maps.app.goo.gl/HauX1LfkkHWrpWDy9" target="_blank" class="btn-primary">Trovaci su Maps</a>
+      <a href="tel:+390249370980" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 9.9a19.79 19.79 0 01-3.07-8.67A2 2 0 012.77 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.72a16 16 0 006.29 6.29l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +39 02 4937 0980
+      </a>
+    </div>
+  </div>
+
+  <!-- Image cluster right -->
+  <div class="hero-image-cluster">
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80" alt="Dim Sum" loading="lazy">
+      <span class="img-tag">Dim Sum</span>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" alt="Noodles" loading="lazy">
+      <span class="img-tag">Noodles</span>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Anatra Pechino" loading="lazy">
+      <span class="img-tag">Anatra</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item">Dim Sum Artigianali</div>
+    <div class="ticker-item">Anatra alla Pechinese</div>
+    <div class="ticker-item">Noodles Fatti in Casa</div>
+    <div class="ticker-item">Xiao Long Bao</div>
+    <div class="ticker-item">Cucina Autentica</div>
+    <div class="ticker-item">Milano — Via Viviani</div>
+    <div class="ticker-item">儒家 Rujia Family</div>
+    <div class="ticker-item">Dim Sum Artigianali</div>
+    <div class="ticker-item">Anatra alla Pechinese</div>
+    <div class="ticker-item">Noodles Fatti in Casa</div>
+    <div class="ticker-item">Xiao Long Bao</div>
+    <div class="ticker-item">Cucina Autentica</div>
+    <div class="ticker-item">Milano — Via Viviani</div>
+    <div class="ticker-item">儒家 Rujia Family</div>
+  </div>
+</div>
+
+<!-- ─── PHILOSOPHY ─── -->
+<section class="philosophy" id="filosofia">
+  <div class="philosophy-text reveal">
+    <div class="section-label">La Nostra Filosofia</div>
+    <h2>Non un ristorante.<br><em>Una casa.</em></h2>
+    <p>
+      Il nome <strong>Rujia 儒家</strong> porta in sé due significati profondi: 
+      la gentilezza della cultura confuciana e il calore della cucina di casa. 
+      Ogni piatto racconta una storia millenaria, cucinato con gli ingredienti 
+      che arrivano direttamente dalla Cina.
+    </p>
+    <p>
+      A Milano dal cuore della tradizione cinese — per portarti un'esperienza 
+      gastronomica che non trovi altrove: autentica, intensa, indimenticabile.
+    </p>
+    <div class="philosophy-cn-quote">
+      儒家
+      <small>Gentile come la cultura confuciana</small>
+    </div>
+  </div>
+  <div class="philosophy-visual reveal">
+    <img
+      src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=700&q=80"
+      alt="Chef cucina cinese"
+      class="philosophy-img-main"
+      loading="lazy"
+    >
+    <img
+      src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80"
+      alt="Dim Sum"
+      class="philosophy-img-overlay"
+      loading="lazy"
+    >
+    <div class="philosophy-badge">
+      <span class="num">100%</span>
+      <span class="label">Autentica<br>Ricetta</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MENU ─── -->
+<section class="menu-section" id="menu">
+  <div class="section-header reveal">
+    <span class="label">I Nostri Piatti</span>
+    <h2>Sapori<br><span style="color:var(--red)">che parlano</span> Cinese</h2>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div style="overflow:hidden; position:relative;">
+        <img
+          src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80"
+          alt="Xiao Long Bao"
+          class="menu-card-img"
+          loading="lazy"
+        >
+        <span class="menu-card-tag">Signature</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-cn">小笼包</div>
+        <h3>Xiao Long Bao</h3>
+        <p>Ravioli al vapore ripieni di carne di maiale e brodo gelatinoso — la ricetta originale di Shanghai.</p>
+        <div class="menu-card-price">€9,80 <small>/ 6 pz</small></div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.1s">
+      <div style="overflow:hidden; position:relative;">
+        <img
+          src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80"
+          alt="Noodles Piccanti"
+          class="menu-card-img"
+          loading="lazy"
+        >
+        <span class="menu-card-tag">Piccante</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-cn">红油拌面</div>
+        <h3>Noodles all'Olio di Peperoncino</h3>
+        <p>Noodles tirati a mano, conditi con olio di peperoncino Sichuan, cipollotto fresco e soia fermentata.</p>
+        <div class="menu-card-price">€11,50</div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.2s">
+      <div style="overflow:hidden; position:relative;">
+        <img
+          src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80"
+          alt="Anatra Pechinese"
+          class="menu-card-img"
+          loading="lazy"
+        >
+        <span class="menu-card-tag">Tradizione</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-cn">北京烤鸭</div>
+        <h3>Anatra alla Pechinese</h3>
+        <p>L'icona assoluta della cucina cinese. Pelle croccante laccata, servita con pancakes, cetriolo e salsa hoisin.</p>
+        <div class="menu-card-price">€24,00 <small>/ mezza</small></div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.05s">
+      <div style="overflow:hidden; position:relative;">
+        <img
+          src="https://images.unsplash.com/photo-1598514982901-3c84de5ae3b7?w=600&q=80"
+          alt="Gyoza"
+          class="menu-card-img"
+          loading="lazy"
+        >
+        <span class="menu-card-tag">Dim Sum</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-cn">锅贴</div>
+        <h3>Gyoza Artigianali</h3>
+        <p>Ravioli croccanti alla piastra con ripieni di maiale e cavolo cinese. Serviti con salsa allo zenzero.</p>
+        <div class="menu-card-price">€8,50 <small>/ 8 pz</small></div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.15s">
+      <div style="overflow:hidden; position:relative;">
+        <img
+          src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80"
+          alt="Mapo Tofu"
+          class="menu-card-img"
+          loading="lazy"
+        >
+        <span class="menu-card-tag">Sichuan</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-cn">麻婆豆腐</div>
+        <h3>Mapo Tofu</h3>
+        <p>Tofu morbido in salsa piccante di peperoncino Doubanjiang, carne di manzo macinata e pepe Sichuan.</p>
+        <div class="menu-card-price">€13,00</div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.25s">
+      <div style="overflow:hidden; position:relative;">
+        <img
+          src="https://images.unsplash.com/photo-1596797882870-8c33dcd02306?w=600&q=80"
+          alt="Riso Fritto"
+          class="menu-card-img"
+          loading="lazy"
+        >
+        <span class="menu-card-tag">Classico</span>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-cn">扬州炒饭</div>
+        <h3>Riso Fritto Yangzhou</h3>
+        <p>Riso jasmine saltato con gamberi, prosciutto, uova strapazzate e verdure di stagione. Profumato e leggero.</p>
+        <div class="menu-card-price">€10,00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PERCHÉ RUJIA ─── -->
+<section class="why-section">
+  <div class="section-header reveal">
+    <span class="label">Perché sceglierci</span>
+    <h2>L'<em style="font-style:italic; color:var(--red)">autenticità</em><br>non si imita</h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon">🥢</div>
+      <h3>Ingredienti Originali</h3>
+      <p>Importiamo spezie, salse e ingredienti chiave direttamente dalla Cina. Nessun compromesso sul sapore autentico.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:0.1s">
+      <div class="why-icon">👨‍🍳</div>
+      <h3>Chef Cinesi</h3>
+      <p>Le nostre cucine sono guidate da chef con formazione in Cina, portatori di ricette tramandate di generazione in generazione.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:0.2s">
+      <div class="why-icon">🏮</div>
+      <h3>Atmosfera Unica</h3>
+      <p>Un ambiente che fonde l'eleganza contemporanea con i colori e i simboli della cultura cinese. Non un ristorante, una casa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BENTO GALLERY ─── -->
+<section class="gallery-section" id="galleria">
+  <div class="section-header reveal" style="text-align:left; margin-bottom:2rem;">
+    <span class="label">Galleria</span>
+    <h2>Ogni piatto,<br><span style="color:var(--gold)">un'opera.</span></h2>
+  </div>
+  <div class="bento-grid reveal">
+    <div class="bento-item">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&q=80" alt="Dim Sum" loading="lazy">
+    </div>
+    <div class="bento-item">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Anatra" loading="lazy">
+    </div>
+    <div class="bento-item">
+      <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&q=80" alt="Noodles" loading="lazy">
+    </div>
+    <div class="bento-item">
+      <img src="https://images.unsplash.com/photo-1596797882870-8c33dcd02306?w=400&q=80" alt="Riso" loading="lazy">
+    </div>
+    <div class="bento-item">
+      <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=800&q=80" alt="Mapo Tofu" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA / CONTATTI ─── -->
+<section class="cta-section" id="contatti">
+  <div class="cta-text">
+    <span class="label">Vieni a Trovarci</span>
+    <h2>Prenota il tuo<br>tavolo oggi</h2>
+    <p>
+      Siamo a Milano, pronti ad accoglierti con il calore della cucina cinese autentica. 
+      Chiama o vieni direttamente — noi siamo sempre qui per te.
+    </p>
+    <a href="tel:+390249370980" class="btn-white">📞 Chiama Adesso</a>
+  </div>
+
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="info-card-icon">📞</div>
+      <div>
+        <div class="info-card-label">Telefono</div>
+        <div class="info-card-value"><a href="tel:+390249370980">+39 02 4937 0980</a></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">📍</div>
+      <div>
+        <div class="info-card-label">Dove siamo</div>
+        <div class="info-card-value">
+          <a href="https://maps.app.goo.gl/HauX1LfkkHWrpWDy9" target="_blank">
+            Milano — <br>Visualizza su Google Maps →
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🕐</div>
+      <div>
+        <div class="info-card-label">Orari</div>
+        <div class="info-card-value">
+          Lun – Ven: 12:00 – 14:30 | 19:00 – 22:30<br>
+          Sab – Dom: 12:00 – 23:00
+        </div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🍽️</div>
+      <div>
+        <div class="info-card-label">Cucina</div>
+        <div class="info-card-value">Cinese Autentica · Dim Sum · Sichuan · Canton</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAP ─── -->
+<div class="map-section">
+  <div class="map-overlay-label">
+    📍 Rujia Restaurant — Milano
+  </div>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.9!2d9.173!3d45.466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786c6a55555555%3A0x0!2zTWlsYW5v!5e0!3m2!1sit!2sit!4v1700000000000"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title="Rujia Restaurant Milano"
+  ></iframe>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-brand">
+    <span class="cn">儒家</span>
+    <span class="en">Rujia Restaurant</span>
+    <p>«Un vero sapore cinese,<br>come a casa tua in Cina.»</p>
+  </div>
+
+  <div>
+    <h4>Navigazione</h4>
+    <ul>
+      <li><a href="#filosofia">Chi Siamo</a></li>
+      <li><a href="#menu">Il Menu</a></li>
+      <li><a href="#galleria">Galleria</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <h4>Contatti</h4>
+    <ul>
+      <li><a href="tel:+390249370980">+39 02 4937 0980</a></li>
+      <li><a href="https://maps.app.goo.gl/HauX1LfkkHWrpWDy9" target="_blank">Visualizza su Maps</a></li>
+      <li>Milano, Italia</li>
+    </ul>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Rujia Restaurant 儒家 — Milano. Tutti i diritti riservati.</p>
+    <p>Fatto con <span class="hearts">❤</span> per la cultura cinese</p>
+  </div>
+</footer>
+
+<!-- ─── SCROLL REVEAL JS ─── -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

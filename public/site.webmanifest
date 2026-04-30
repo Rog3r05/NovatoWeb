@@ -1,0 +1,21 @@
+{
+  "name": "Novato",
+  "short_name": "Novato",
+  "description": "Simple, powerful tools that help people focus, track progress, and get things done.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff3300",
+  "icons": [
+    {
+      "src": "/novato.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/novato.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
