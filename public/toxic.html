@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toxic — Rate your workplace · Novato Labs</title>
+<link rel="stylesheet" href="shared/novato.css">
+</head>
+<body class="is-labs" data-screen-label="Toxic — Stub Subdomain">
+<div id="nv-header-slot"></div>
+
+<!-- "fake subdomain" bar -->
+<div style="background: var(--ink); color:#888; padding:8px 24px; font-family: var(--font-mono); font-size:11px; letter-spacing:0.06em; text-align:center; border-bottom:1px solid #2a2a2a;">
+  <span data-i18n="hero.toxic.subdomain">toxic.novato.dev — early access · </span><a href="labs.html" style="color: var(--novato-blue); text-decoration:underline;" data-i18n="hero.toxic.back_labs">back to Labs</a>
+</div>
+
+<!-- HERO -->
+<section class="nv-hero" style="min-height: 60vh;">
+  <div class="nv-hero-wedge" aria-hidden="true"></div>
+  <div class="nv-hero-inner">
+    <div style="margin-bottom: 24px;">
+      <span class="nv-pill" style="background: var(--novato-blue); color:#fff; border-color: var(--novato-blue);">
+        <span class="dot" style="width:6px;height:6px;border-radius:999px;background:#fff;display:inline-block;"></span><span data-i18n="hero.toxic.coming">Coming soon — Waitlist open</span>
+      </span>
+    </div>
+    <h1 class="nv-hero-title span-multi">
+      <span data-i18n="hero.toxic.l1">Rate</span><span data-i18n="hero.toxic.l2">your</span><span data-i18n="hero.toxic.l3">workplace.</span>
+    </h1>
+    <p class="nv-hero-sub" data-i18n="hero.toxic.sub">
+      Toxic is a public-score app for companies — built by the workers who lived it. Every company gets a score. Every score is earned. Anonymous, honest, useful.
+    </p>
+    <form class="flex gap-4" style="flex-wrap:wrap; max-width:520px; margin-top: 8px;" onsubmit="event.preventDefault(); document.getElementById('wl-msg').style.display='block'; this.querySelector('input').value='';">
+      <input type="email" required placeholder="your@email.com" data-i18n-attr="placeholder:hero.toxic.placeholder" style="flex:1; min-width: 200px; border:1px solid var(--ink); padding: 14px 16px; font-family: var(--font-mono); font-size:14px; background: #fff; border-radius:0;">
+      <button type="submit" class="nv-btn"><span data-i18n="btn.join_waitlist">Join Waitlist</span> <span class="arr">→</span></button>
+    </form>
+    <p id="wl-msg" style="display:none; font-family: var(--font-mono); font-size:13px; color: var(--novato-blue); margin-top: 16px;" data-i18n="hero.toxic.confirm">→ You're on the list. We'll email you when Toxic opens.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="nv-section">
+  <div class="nv-eyebrow" data-i18n="eyebrow.howitworks">How it works</div>
+  <h2 style="font-family:var(--font-display); font-weight:700; font-size:clamp(40px,6vw,88px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; margin:0 0 56px; max-width:1100px;">
+    <span data-i18n="toxic.how.title.a">Three steps.</span><br><span data-i18n="toxic.how.title.b">One honest score.</span>
+  </h2>
+  <div class="nv-features" style="grid-template-columns: repeat(3, 1fr);">
+    <div>
+      <div class="num">01</div>
+      <h3 data-i18n="toxic.how.s1.t">Verify, anonymously</h3>
+      <p data-i18n="toxic.how.s1.b">Confirm you worked there with a payslip or work email — then we strip every identifier. Your review can never be traced back to you.</p>
+    </div>
+    <div>
+      <div class="num">02</div>
+      <h3 data-i18n="toxic.how.s2.t">Rate honestly</h3>
+      <p data-i18n="toxic.how.s2.b">Six axes: management, hours, comp, growth, culture, ethics. One paragraph each. Required. No vague star-reviews.</p>
+    </div>
+    <div>
+      <div class="num">03</div>
+      <h3 data-i18n="toxic.how.s3.t">Public score, forever</h3>
+      <p data-i18n="toxic.how.s3.b">We aggregate every verified review into one public score per company. Companies don't pay to suppress them. Ever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE SCORES -->
+<section class="nv-section" style="background: var(--paper-dim);">
+  <div class="nv-eyebrow" data-i18n="eyebrow.samples">Sample scores</div>
+  <h2 style="font-family:var(--font-display); font-weight:700; font-size:clamp(40px,5vw,72px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; margin:0 0 32px;" data-i18n="toxic.samples.title">
+    Honest. Public. Earned.
+  </h2>
+  <p class="muted" style="margin-bottom:48px; max-width:560px;" data-i18n="toxic.samples.sub">A peek at the scoreboard. Real companies, fictional scores — until we go live.</p>
+
+  <div style="display:grid; gap:16px; max-width:920px;">
+    <div class="toxic-card">
+      <span class="toxic-score bad">2.1</span>
+      <div>
+        <h3>MegaCorp Inc.</h3>
+        <div class="sub">Tech · 412 verified reviews · ↓ 0.4 last quarter</div>
+      </div>
+      <div class="reviews">
+        <div style="font-weight:700; color: var(--ink);">Worst axes</div>
+        <div>Hours · Management</div>
+      </div>
+    </div>
+    <div class="toxic-card">
+      <span class="toxic-score bad">3.4</span>
+      <div>
+        <h3>BigBank Group</h3>
+        <div class="sub">Finance · 287 verified reviews · — 0.0 last quarter</div>
+      </div>
+      <div class="reviews">
+        <div style="font-weight:700; color: var(--ink);">Worst axes</div>
+        <div>Comp · Culture</div>
+      </div>
+    </div>
+    <div class="toxic-card">
+      <span class="toxic-score ok">5.7</span>
+      <div>
+        <h3>StartupXYZ</h3>
+        <div class="sub">SaaS · 87 verified reviews · ↑ 0.2 last quarter</div>
+      </div>
+      <div class="reviews">
+        <div style="font-weight:700; color: var(--ink);">Worst axes</div>
+        <div>Hours · Growth</div>
+      </div>
+    </div>
+    <div class="toxic-card">
+      <span class="toxic-score ok">6.8</span>
+      <div>
+        <h3>Average Co.</h3>
+        <div class="sub">Retail · 612 verified reviews · ↑ 0.1 last quarter</div>
+      </div>
+      <div class="reviews">
+        <div style="font-weight:700; color: var(--ink);">Worst axes</div>
+        <div>Comp</div>
+      </div>
+    </div>
+    <div class="toxic-card">
+      <span class="toxic-score good">8.9</span>
+      <div>
+        <h3>Good Co.</h3>
+        <div class="sub">Design · 156 verified reviews · ↑ 0.3 last quarter</div>
+      </div>
+      <div class="reviews">
+        <div style="font-weight:700; color: var(--ink);">Best axes</div>
+        <div>Culture · Ethics</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="nv-section">
+  <div class="nv-eyebrow" data-i18n="eyebrow.principles">Principles</div>
+  <h2 class="nv-manifesto mb-8">
+    <span class="accent" data-i18n="toxic.princ.t1">Workers first.</span><br>
+    <span class="strike" data-i18n="toxic.princ.t2">Recruiters first.</span><br>
+    <span class="strike" data-i18n="toxic.princ.t3">Employer branding.</span>
+  </h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: var(--border-hair); border-left: var(--border-hair); margin-top: 56px;" class="principles-grid">
+    <div style="padding:32px; border-right: var(--border-hair); border-bottom: var(--border-hair);">
+      <h3 style="font-family: var(--font-mono); font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; margin:0 0 12px;" data-i18n="toxic.princ.p1.t">Companies can't pay to hide</h3>
+      <p style="color: var(--grey-500); margin:0; font-size:13px; line-height:1.7;" data-i18n="toxic.princ.p1.b">No "premium employer profile" tier. Every score is public. Permanent.</p>
+    </div>
+    <div style="padding:32px; border-right: var(--border-hair); border-bottom: var(--border-hair);">
+      <h3 style="font-family: var(--font-mono); font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; margin:0 0 12px;" data-i18n="toxic.princ.p2.t">Verified or it doesn't count</h3>
+      <p style="color: var(--grey-500); margin:0; font-size:13px; line-height:1.7;" data-i18n="toxic.princ.p2.b">Every review is verified. No anonymous trolling, no astroturfing.</p>
+    </div>
+    <div style="padding:32px; border-right: var(--border-hair); border-bottom: var(--border-hair);">
+      <h3 style="font-family: var(--font-mono); font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; margin:0 0 12px;" data-i18n="toxic.princ.p3.t">Identity strip, on submit</h3>
+      <p style="color: var(--grey-500); margin:0; font-size:13px; line-height:1.7;" data-i18n="toxic.princ.p3.b">We verify, then forget. Reviews are unlinkable to your account by design.</p>
+    </div>
+    <div style="padding:32px; border-right: var(--border-hair); border-bottom: var(--border-hair);">
+      <h3 style="font-family: var(--font-mono); font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; margin:0 0 12px;" data-i18n="toxic.princ.p4.t">Free for workers, paid by truth</h3>
+      <p style="color: var(--grey-500); margin:0; font-size:13px; line-height:1.7;" data-i18n="toxic.princ.p4.b">Reading and reviewing is free. Companies pay only for verified hiring data — never to edit scores.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="nv-cta-strip">
+  <h2><span data-i18n="cta.toxic.a">Help us</span><br><span data-i18n="cta.toxic.b">build</span> <span class="accent" data-i18n="cta.toxic.c">Toxic.</span></h2>
+  <a href="#top" class="nv-btn on-dark"><span data-i18n="btn.join_waitlist">Join Waitlist</span> <span class="arr">→</span></a>
+</section>
+
+<div id="nv-footer-slot"></div>
+
+<script src="shared/i18n.js"></script>
+<script src="shared/i18n-runtime.js"></script>
+<script src="shared/novato.js"></script>
+<script>NV.init({site:'labs', page:'toxic'});</script>
+
+<style>
+@media (max-width: 720px) {
+  .toxic-card { grid-template-columns: auto 1fr; gap: 16px !important; }
+  .toxic-card .reviews { display:none; }
+  .principles-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+</body>
+</html>

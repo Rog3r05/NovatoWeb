@@ -1,0 +1,225 @@
+/* ============================================================
+   Novato Design System — colors_and_type.css
+   Utilitarian, brutalist, monospace-driven.
+   ============================================================ */
+
+/* ---- Web fonts (Google Fonts substitutes — see README) ---- */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* ===== COLORS — Brand ===== */
+  --novato-red: #FF3B14;          /* signature orange-red, hero accent */
+  --novato-red-hover: #E5340F;
+  --novato-red-press: #C82D0D;
+
+  /* ===== COLORS — Neutrals ===== */
+  --ink: #0B0B0B;                  /* near-black, used for text + hero blocks */
+  --ink-soft: #1A1A1A;             /* card black */
+  --paper: #FFFFFF;                /* canvas white */
+  --paper-dim: #FAFAFA;            /* alt section background */
+  --rule: #0B0B0B;                 /* hairline divider color (full strength) */
+  --rule-soft: #E6E6E6;            /* light divider on white */
+
+  /* ===== COLORS — Greys (numeric ghost numerals etc.) ===== */
+  --grey-50: #F5F5F5;
+  --grey-100: #E6E6E6;
+  --grey-200: #D4D4D4;
+  --grey-300: #B8B8B8;             /* "01 / 02 / 03" ghost numerals */
+  --grey-400: #8C8C8C;             /* secondary labels */
+  --grey-500: #5C5C5C;
+  --grey-600: #3D3D3D;
+  --grey-900: var(--ink);
+
+  /* ===== COLORS — Foreground / Background semantic ===== */
+  --fg-1: var(--ink);              /* primary text on light */
+  --fg-2: var(--grey-500);         /* secondary text on light */
+  --fg-3: var(--grey-400);         /* tertiary text/labels */
+  --fg-on-red: #FFFFFF;            /* text on red */
+  --fg-on-ink: #FFFFFF;            /* text on black */
+  --fg-inverse: #FFFFFF;           /* text on dark */
+
+  --bg-1: var(--paper);            /* canvas */
+  --bg-2: var(--paper-dim);
+  --bg-ink: var(--ink);            /* dark sections (Let's Talk) */
+  --bg-red: var(--novato-red);     /* full-bleed accent panels */
+
+  /* ===== TYPOGRAPHY — Families ===== */
+  --font-display: 'Oswald', 'Bebas Neue', 'Impact', 'Arial Narrow Bold', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', 'Menlo', 'Consolas', ui-monospace, monospace;
+  --font-body: var(--font-mono);   /* body IS mono in this brand */
+
+  /* ===== TYPOGRAPHY — Weights ===== */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  /* ===== TYPOGRAPHY — Tracking ===== */
+  --track-display: -0.01em;        /* condensed display: tight */
+  --track-label: 0.06em;           /* uppercase labels: open */
+  --track-body: 0;
+
+  /* ===== TYPOGRAPHY — Scale ===== */
+  --fs-display-xl: clamp(72px, 11vw, 168px);  /* "BUILD BETTER TOOLS" */
+  --fs-display-l:  clamp(56px, 8vw, 120px);   /* "LET'S TALK." */
+  --fs-display-m:  56px;
+  --fs-display-s:  40px;
+  --fs-h1: 28px;       /* "TOMATO CLOCK" card title */
+  --fs-h2: 22px;
+  --fs-h3: 18px;
+  --fs-body: 15px;
+  --fs-body-sm: 13px;
+  --fs-label: 12px;    /* "OUR PRODUCTS", "EMAIL", uppercase eyebrows */
+  --fs-micro: 11px;
+
+  --lh-display: 0.92;
+  --lh-tight: 1.1;
+  --lh-body: 1.55;
+  --lh-loose: 1.7;
+
+  /* ===== SPACING ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* ===== RADII ===== */
+  --radius-0: 0px;       /* default — Novato is mostly square */
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-pill: 999px;
+
+  /* ===== BORDERS ===== */
+  --border-hair: 1px solid var(--ink);
+  --border-thick: 2px solid var(--ink);
+  --border-soft: 1px solid var(--rule-soft);
+
+  /* ===== SHADOWS ===== */
+  --shadow-none: none;
+  --shadow-flat: 0 0 0 1px var(--ink);     /* Novato uses borders, not shadows */
+  --shadow-press: 2px 2px 0 0 var(--ink);  /* optional brutalist offset */
+}
+
+/* ============================================================
+   SEMANTIC TYPE STYLES
+   ============================================================ */
+
+.display-xl,
+.t-display-xl {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-display-xl);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.display-l,
+.t-display-l {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-display-l);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+}
+
+.display-m {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-display-m);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+}
+
+h1, .h1 {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+h2, .h2 {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h3, .h3 {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+p, .body {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.body-sm {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+}
+
+.label,
+.eyebrow {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.label-soft {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-regular);
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+code, .code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body-sm);
+}
+
+/* ============================================================
+   GLOBAL RESETS & BASE
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg-1);
+  background: var(--bg-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

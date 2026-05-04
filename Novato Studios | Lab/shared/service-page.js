@@ -113,29 +113,8 @@
 
   NV.renderService = function(slug) {
     currentSlug = slug;
-    const root = document.getElementById('service-root');
-    if (!root) return;
-
-    let s;
-    try {
-      s = getServiceData(slug);
-    } catch (e) {
-      console.error('Error getting service data for', slug, e);
-      root.innerHTML = '<section class="nv-section"><p>Service data error.</p></section>';
-      return;
-    }
-    if (!s) {
-      console.error('Service data not found for:', slug);
-      root.innerHTML = `
-        <section class="nv-section">
-          <div class="nv-eyebrow">Error</div>
-          <h2>Service not found</h2>
-          <p>The requested service (${slug}) could not be loaded.</p>
-        </section>`;
-      return;
-    }
-
-    try {
+    const s = getServiceData(slug);
+    if (!s) return;
     const root = document.getElementById('service-root');
     if (!root) return;
 
@@ -283,12 +262,6 @@
         <a href="mailto:hello@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn on-dark">Let's Talk <span class="arr">→</span></a>
       </section>
     `;
-    } catch (err) {
-      console.error('Error rendering service:', slug, err);
-      if (root) {
-        root.innerHTML = `<section class="nv-section"><p>Rendering error: ${err.message}</p></section>`;
-      }
-    }
   };
 
   window.addEventListener('nv:lang-change', () => {
