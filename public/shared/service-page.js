@@ -136,10 +136,7 @@
     }
 
     try {
-    const root = document.getElementById('service-root');
-    if (!root) return;
-
-    const planCards = s.plans.map((p, i) => `
+      const planCards = s.plans.map((p, i) => `
       <div class="nv-plan ${i===1 ? 'featured' : ''}">
         ${i===1 ? '<div class="nv-plan-tag">Most popular</div>' : ''}
         <div class="nv-plan-name">${p.name}</div>
