@@ -123,8 +123,7 @@
         <div>
           <h4 data-i18n="footer.contact">Contact</h4>
           <ul>
-            <li><a href="mailto:hello@novato.dev">hello@novato.dev</a></li>
-            <li><a href="mailto:work@novato.dev">work@novato.dev</a></li>
+<li><a href="mailto:help@novato.dev">help@novato.dev</a></li>
             <li><a href="index.html#contact" data-i18n="footer.send_msg">Send a message</a></li>
           </ul>
         </div>

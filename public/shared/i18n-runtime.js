@@ -50,10 +50,10 @@
     window.dispatchEvent(new CustomEvent('nv:lang-change', { detail: { lang } }));
   }
 
-   function injectSwitcher() {
-     // Inject into the mobile/secondary nav container
-     const nav = document.querySelector('.nv-lang-mobile') || document.querySelector('.nv-nav');
-     if (!nav || nav.querySelector('.nv-lang')) return;
+  function injectSwitcher() {
+    // Find the nav element; append the switcher as the last item
+    const nav = document.querySelector('.nv-nav');
+    if (!nav || nav.querySelector('.nv-lang')) return;
 
     const cur = LANGS.find(l => l.code === getLang()) || LANGS[0];
 

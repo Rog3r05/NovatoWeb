@@ -113,30 +113,12 @@
 
   NV.renderService = function(slug) {
     currentSlug = slug;
+    const s = getServiceData(slug);
+    if (!s) return;
     const root = document.getElementById('service-root');
     if (!root) return;
 
-    let s;
-    try {
-      s = getServiceData(slug);
-    } catch (e) {
-      console.error('Error getting service data for', slug, e);
-      root.innerHTML = '<section class="nv-section"><p>Service data error.</p></section>';
-      return;
-    }
-    if (!s) {
-      console.error('Service data not found for:', slug);
-      root.innerHTML = `
-        <section class="nv-section">
-          <div class="nv-eyebrow">Error</div>
-          <h2>Service not found</h2>
-          <p>The requested service (${slug}) could not be loaded.</p>
-        </section>`;
-      return;
-    }
-
-    try {
-      const planCards = s.plans.map((p, i) => `
+    const planCards = s.plans.map((p, i) => `
       <div class="nv-plan ${i===1 ? 'featured' : ''}">
         ${i===1 ? '<div class="nv-plan-tag">Most popular</div>' : ''}
         <div class="nv-plan-name">${p.name}</div>
@@ -147,7 +129,7 @@
         </div>
         <p class="nv-plan-blurb">${p.blurb}</p>
         <ul>${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
-        <a href="mailto:hello@novato.dev?subject=${encodeURIComponent(s.title + ' — ' + p.name)}" class="nv-btn ${i===1 ? 'on-dark' : ''}">${p.cta || 'Get Started'} <span class="arr">→</span></a>
+        <a href="mailto:help@novato.dev?subject=${encodeURIComponent(s.title + ' — ' + p.name)}" class="nv-btn ${i===1 ? 'on-dark' : ''}">${p.cta || 'Get Started'} <span class="arr">→</span></a>
       </div>
     `).join('');
 
@@ -202,7 +184,7 @@
           <p>${s.blurb}</p>
           <div class="flex gap-4" style="flex-wrap:wrap; margin-top: 8px;">
             <a href="#plans" class="nv-btn">View Plans <span class="arr">→</span></a>
-            <a href="mailto:hello@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn outline">Get a Quote <span class="arr">→</span></a>
+            <a href="mailto:help@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn outline">Get a Quote <span class="arr">→</span></a>
           </div>
         </div>
         <div class="right red">
@@ -270,22 +252,16 @@
                 <dt>Lead time</dt><dd>${s.meta.lead}</dd>
               </dl>
             </div>
-            <a href="mailto:hello@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn" style="margin-top:32px;">Email Us <span class="arr">→</span></a>
+            <a href="mailto:help@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn" style="margin-top:32px;">Email Us <span class="arr">→</span></a>
           </div>
         </div>
       </section>
 
       <section class="nv-cta-strip">
         <h2>Ready to build<br>your <span class="accent">${s.title.toLowerCase()}</span>?</h2>
-        <a href="mailto:hello@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn on-dark">Let's Talk <span class="arr">→</span></a>
+        <a href="mailto:help@novato.dev?subject=${encodeURIComponent(s.title + ' inquiry')}" class="nv-btn on-dark">Let's Talk <span class="arr">→</span></a>
       </section>
     `;
-    } catch (err) {
-      console.error('Error rendering service:', slug, err);
-      if (root) {
-        root.innerHTML = `<section class="nv-section"><p>Rendering error: ${err.message}</p></section>`;
-      }
-    }
   };
 
   window.addEventListener('nv:lang-change', () => {
