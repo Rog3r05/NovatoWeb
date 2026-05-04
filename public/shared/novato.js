@@ -57,38 +57,49 @@
     return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
   }
 
-  // --- Header injection --------------------------------------------
-  function buildHeader(site, page) {
-    const isLabs = site === 'labs';
-    const home = isLabs ? 'labs.html' : 'index.html';
-    const wordmark = isLabs ? 'NOVATO LABS' : 'NOVATO';
+   // --- Header injection --------------------------------------------
+   function buildHeader(site, page) {
+     const isLabs = site === 'labs';
+     const home = isLabs ? 'labs.html' : 'index.html';
+     const wordmark = isLabs ? 'NOVATO LABS' : 'NOVATO';
 
-    // Studios nav
-    const studiosNav = `
-      <a href="index.html#services" class="${page==='services'?'is-active':''}" data-i18n="nav.services">Services</a>
-      <a href="index.html#products" data-i18n="nav.products">Products</a>
-      <a href="index.html#about" data-i18n="nav.studio">Studio</a>
-      <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
-      <a href="labs.html" class="nv-labs-cta" data-i18n="nav.go_labs">Go to Labs →</a>
-    `;
-    // Labs nav
-    const labsNav = `
-      <a href="labs.html#products" class="${page==='labs-products'?'is-active':''}" data-i18n="nav.products">Products</a>
-      <a href="labs.html#manifesto" data-i18n="nav.manifesto">Manifesto</a>
-      <a href="labs.html#collab" data-i18n="nav.collab">Collaborate</a>
-      <a href="index.html" class="nv-labs-cta" data-i18n="nav.back_studios">← Back to Studios</a>
-    `;
+     // Primary navigation (main links, hidden on mobile, shown via hamburger)
+     const primaryLinks = isLabs ?
+       `<a href="labs.html#products" class="${page==='labs-products'?'is-active':''}" data-i18n="nav.products">Products</a>
+        <a href="labs.html#manifesto" data-i18n="nav.manifesto">Manifesto</a>
+        <a href="labs.html#collab" data-i18n="nav.collab">Collaborate</a>` :
+       `<a href="index.html#services" class="${page==='services'?'is-active':''}" data-i18n="nav.services">Services</a>
+        <a href="index.html#products" data-i18n="nav.products">Products</a>
+        <a href="index.html#about" data-i18n="nav.studio">Studio</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>`;
 
-    return `
-      <header class="nv-header">
-        <a class="nv-brand" href="${home}">
-          <img class="nv-brand-mark" src="shared/assets/logo-inverted.png" alt="" aria-hidden="true">
-          <span class="nv-brand-word">${wordmark}</span>
-        </a>
-        <nav class="nv-nav">${isLabs ? labsNav : studiosNav}</nav>
-      </header>
-    `;
-  }
+     // Secondary actions (always visible: labs CTA + language switcher placeholder)
+     const secondaryLinks = isLabs ?
+       `<a href="index.html" class="nv-labs-cta" data-i18n="nav.back_studios">← Back to Studios</a>` :
+       `<a href="labs.html" class="nv-labs-cta" data-i18n="nav.go_labs">Go to Labs →</a>`;
+
+     return `
+       <header class="nv-header">
+         <a class="nv-brand" href="${home}">
+           <img class="nv-brand-mark" src="shared/assets/logo-inverted.png" alt="" aria-hidden="true">
+           <span class="nv-brand-word">${wordmark}</span>
+         </a>
+         <nav class="nv-primary-nav">${primaryLinks}</nav>
+         <div class="nv-actions">
+           <nav class="nv-secondary-nav">${secondaryLinks}
+             <div class="nv-lang-mobile"></div>
+           </nav>
+           <button class="nv-hamburger" aria-label="Toggle navigation">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <line x1="3" y1="6" x2="21" y2="6"></line>
+               <line x1="3" y1="12" x2="21" y2="12"></line>
+               <line x1="3" y1="18" x2="21" y2="18"></line>
+             </svg>
+           </button>
+         </div>
+       </header>
+     `;
+   }
 
   // --- Footer injection --------------------------------------------
   function buildFooter(site) {
@@ -265,14 +276,32 @@
   }
 
   // --- Public init -------------------------------------------------
-  NV.init = function({ site = 'studios', page = '' } = {}) {
-    if (site === 'labs') document.body.classList.add('is-labs');
+   NV.init = function({ site = 'studios', page = '' } = {}) {
+     if (site === 'labs') document.body.classList.add('is-labs');
 
-    const headerSlot = document.getElementById('nv-header-slot');
-    if (headerSlot) headerSlot.outerHTML = buildHeader(site, page);
+     const headerSlot = document.getElementById('nv-header-slot');
+     if (headerSlot) headerSlot.outerHTML = buildHeader(site, page);
 
-    const footerSlot = document.getElementById('nv-footer-slot');
-    if (footerSlot) footerSlot.outerHTML = buildFooter(site);
+     // Hamburger menu toggle
+     const header = document.querySelector('.nv-header');
+     if (header) {
+       const hamburger = header.querySelector('.nv-hamburger');
+       if (hamburger) {
+         hamburger.addEventListener('click', () => {
+           header.classList.toggle('nav-open');
+         });
+         // Close menu when a primary nav link is clicked
+         const primaryNav = header.querySelector('.nv-primary-nav');
+         if (primaryNav) {
+           primaryNav.querySelectorAll('a').forEach(link => {
+             link.addEventListener('click', () => header.classList.remove('nav-open'));
+           });
+         }
+       }
+     }
+
+     const footerSlot = document.getElementById('nv-footer-slot');
+     if (footerSlot) footerSlot.outerHTML = buildFooter(site);
 
     // Append tweaks panel
     const tweaksWrap = document.createElement('div');
